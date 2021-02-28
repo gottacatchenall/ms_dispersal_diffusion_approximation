@@ -29,6 +29,13 @@ two locations is equal to its expected value at every time point---ignoring any
 temporal variation in dispersal. However, here we show that in some cases this
 assumption creates artificially synchronized dynamics across space.
 
+Why is it important we understand when dispersal is a valid approx of dispersal?
+In order to design landscapes that mitigate biodiversity loss and its effects
+[@albertApplyingNetworkTheory2017], we need models to understand how landscape
+structure affects ecological processes. Understanding when dispersal is
+well-approximated by diffusion, and when it isn't, is important because
+diffusion models are much less computationally expensive.
+
 We do this by using a simulation model with two parts: 1) a spatial graph model
 of both stochastic dispersal and diffusion, and 2) a Ricker model of local
 population dynamics. We then show that there are two regimes: one under which
@@ -38,12 +45,7 @@ distributions of synchrony. We show that the boundaries between these regimes is
 caused by both the modularity of the dispersal network and demographic
 parameters.
 
-Why is it important we understand when dispersal is a valid approx of dispersal?
-In order to design landscapes that mitigate biodiversity loss and its effects
-[@albertApplyingNetworkTheory2017], we need models to understand how landscape
-structure affects ecological processes. Understanding when dispersal is
-well-approximated by diffusion, and when it isn't, is important because
-diffusion models are much less computationally expensive.
+
 
 ### A Model of Metapopulation Dynamics of Spatial Graphs
 
