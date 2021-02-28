@@ -47,7 +47,7 @@ Base.length(trajectory::MetapopulationTrajectory) = length(trajectory.trajectory
     Parameters
 """
 abstract type Parameter end
-abstract type ParameterBundle end
+abstract type ParameterBundle{T,V} end
 abstract type ParameterValues end
 
 abstract type LocalDynamicsModel end
@@ -100,6 +100,7 @@ end
 
 
 DispersalPotential(; metapopulation::Metapopulation=Metapopulation()) = DispersalPotential(metapopulation)
+
 """
     RickerModel
 """
