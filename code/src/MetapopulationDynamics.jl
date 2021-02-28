@@ -1,5 +1,5 @@
 module MetapopulationDynamics
-    using Plots: plot
+    using Plots.RecipesBase
     using Distributions    
     using Distances: Euclidean, evaluate
     include(joinpath(".", "types.jl"))

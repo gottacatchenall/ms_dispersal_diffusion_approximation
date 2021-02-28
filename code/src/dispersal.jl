@@ -14,19 +14,18 @@ Base.getindex(potential::DispersalPotential, i::Int64, j::Int64) = potential.mat
     DispersalPotential(metapopulation::Metapopulation; kernel=ExpKernel())
 """
 DispersalPotential(metapopulation::Metapopulation; kernel=ExpKernel(3)) = begin
-Nₚ = sizeof(metapopulation)
-potential::Matrix = zeros(Nₚ, Nₚ)
-for i in 1:Nₚ, j in 1:Nₚ
-    potential[i,j] = (i==j) ? 0 : kernel(metapopulation.populations[i], metapopulation.populations[j])
+    Nₚ = sizeof(metapopulation)
+    potential::Matrix = zeros(Nₚ, Nₚ)
+    for i in 1:Nₚ, j in 1:Nₚ
+        potential[i,j] = (i==j) ? 0 : kernel(metapopulation.populations[i], metapopulation.populations[j])
+    end
+    for i in 1:Nₚ
+        potential[i,:] = (sum(potential[i,:]) == 0) ? zeros(Nₚ) : potential[i,:] / sum(potential[i,:])
+    end
+    return DispersalPotential(potential)
 end
-for i in 1:Nₚ
-    potential[i,:] = (sum(potential[i,:]) == 0) ? zeros(Nₚ) : potential[i,:] / sum(potential[i,:])
-end
-return DispersalPotential(potential)
-end
-DispersalPotential(metapopulation::Metapopulation, kernel::DispersalKernel) =DispersalPotential(metapopulation, kernel=kernel)
 
-
+DispersalPotential(metapopulation::Metapopulation, kernel::DispersalKernel) = DispersalPotential(metapopulation, kernel=kernel)
 DispersalPotential(; metapopulation::Metapopulation=Metapopulation()) = DispersalPotential(metapopulation)
 
 
@@ -35,11 +34,11 @@ DispersalPotential(; metapopulation::Metapopulation=Metapopulation()) = Dispersa
 """
 # Diffusion dispersal model
 struct DiffusionDispersal <: DispersalModel
-    Φ::DispersalPotential
     m::Float64
+    α::Number
 end
-Base.show(io::IO, dispersal_model::DispersalModel) = print(io, "Dispersal model with \n\t", dispersal_model.Φ, "\n\tm=", dispersal_model.m)
-DiffusionDispersal(;Φ=DispersalPotential(), m::Float64=0.1 ) = DiffusionDispersal(Φ, m)
+Base.show(io::IO, dispersal_model::DispersalModel) = print(io, "Dispersal model with α = ", dispersal_model.α, ", m = ", dispersal_model.m)
+DiffusionDispersal(;m::Float64=0.1, α=3.0 ) = DiffusionDispersal(DispersalPotential(α), m)
 
 DiffusionMatrix(Φ::DispersalPotential, m::Number) = begin
     Nₚ = sizeof(Φ)[1]
@@ -71,6 +70,7 @@ StochasticDispersal(;Φ=DispersalPotential(), m::Float64=0.1 ) = StochasticDispe
 (dispersal_model::StochasticDispersal)(state::MetapopulationState) = begin
     for ab in state
         Nₘ = rand(Binomial())
+        @assert 1 == 0
     end
     return MetapopulationState()
 end

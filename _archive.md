@@ -325,7 +325,7 @@ It is understood that dispersal between populations can contribute to synchrony,
 We use the synchrony of population dynamics as a measure of \textit{functional} connectivity \cite{}, meaning that in the context of metapopulation dynamics, movement between populations is the process driving connectivity: abundances shifting due to migration.
 
 We show that both the modularity of the habitat network (represented by a spatial graph) and the demographic parameters of local population dynamics effect the validity of approximating dispersal with diffusion. We also show that total synchrony is a product of the even-mixing of local demographic stochasticity via dispersal. We do this by presenting a spatial graph model of dispersal, and then simulating metapopulation dynamics by combining a Ricker model of local population dynamics with either diffusion or stochastic dispersal.
-We implement the software to used run these simulations as a Julia package `MetapopulationDynanmics.jl`.
+We implement the software to used run these simulations as a Julia package `MetapopulationDynamics.jl`.
 
 ### discussion
 - Test if diffusion and stochastic dispersal produce same behavior for a problem.
