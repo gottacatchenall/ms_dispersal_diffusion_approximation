@@ -1,4 +1,5 @@
 
+
 MetapopulationState(; number_of_populations::Int=10, min::Int=10, max::Int=100) = MetapopulationState(rand(DiscreteUniform(min,max), (number_of_populations)))
 MetapopulationState(mp::Metapopulation; min::Int=10, max::Int=100) = MetapopulationState(rand(DiscreteUniform(min,max), sizeof(mp)))
 

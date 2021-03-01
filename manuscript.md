@@ -104,17 +104,82 @@ isolation-by-distance strength, $\alpha$.
 
 ## Local population dynamics model
 
-## Dispersal Models
+We model local population dynamics using the Ricker Model. At each timestep, the
+abundance $N_i$ at location $i$ is drawn from
 
-### Stochastic Dispersal
+$$N_i(t+1) \sim \text{Poisson}\bigg(N_i(t) \lambda R e^{- \chi N_i(t)}\bigg)$$
+
+where $\chi$ represents the strength of mortality of surviving until adulthood,
+$R$ is the probability that an adult reproduces ($0.9$ for all results presented
+here), and where $\lambda$ is the mean number of offspring for each individual
+that reproduces---yielding three total parameters: $\theta = \{\lambda, R, \chi
+\}$.  We consider the simplest variation on the model, which only includes
+demographic stochasticity, however it is straightforward to extend this to other
+forms of stochasticity \cite{melbourne_extinction_2008}.
+
+
+## Dispersal Models
 
 ### Diffusion
 
+To model dispersal using diffusion, we incorporate the local Ricker Model into a
+reaction-diffusion model. If the probability that an individual migrates before
+reproducing is $m$, then we can define a diffusion matrix $D$ as
+
+$$D_{ij} = \begin{cases} \Phi_{ij}m \quad\quad\quad &\ i \neq j \\ 1-m  & i=j \end{cases}$$
+
+where $D_{ij}$ is now the expected value of the unit biomass that is born in $i$
+that reproduces in $j$. The dispersal dynamics of the diffusion model are
+described by the mapping
+
+$$N_i(t+1) = \sum_j D_{ji} N_j(t)$$
+
+which can be combined into the local Ricker model from above as
+reaction-diffusion model by computing diffusion before each round of local
+dynamics.
+
+$$N_i(t+1) \sim \text{Poisson}\bigg( \lambda R e^{-\chi \big(\sum_j D_{ji}
+N_j(t)\big)} \cdot \sum_j D_{ji} N_j(t) \bigg)$$
+
+### Stochastic Dispersal
+
+To model stochastic dispersal, for each location $i$, the number of migrants
+leaving that location is drawn $m_{i} \sim \text{Binomial}(N_i, m)$ and for
+every migrating individual $1, \dots, m_i$ we randomly draw where that
+individual goes from the distribution $\Phi^{(i)}$.
+
+## Measuring Synchrony
+
+In ecology and other fields, the crosscorrelation function, \(CC\), has long
+been used as a measure of the synchrony between two time-series
+[liebold_spatial_2004]. Here, with a metapopulation, we consider the mean
+crosscorrelation across all pairs of populations, which we call the
+Pairwise-Crosscorrelation ($\text{PCC}$) and compute as
+
+$$\text{PCC}=\frac{1}{N_p(N_p-1)}\sum_{i > j} CC(N_i,N_j)$$
+
+where $N_i$ is the time-series of abundances at population $i$.
 
 # Results
 
+
+
 # Discussion
+The major point we intend to make here is that if one is developing an
+ecological model that involves organisms dispersing across space, it is
+imperative to test whether stochastic and diffusion dispersal produce similar
+results. diffusion can often be a valuable abstraction that make computation
+faster. But the implementation of abstract (Levins)
 
+Diffusion is an abstract of the true process of dispersal. one way to view this is diffusion ignores temporal variation in dispersal.
 
+Another important consideration for this work is what is meant by a "location" within
+our model. Although we frame this in terms of habitat patches, what an individual point
+in a spatial network represents is a convenient abstract to represent the spatial dimension
+of ecologlcal processes. We argue the dispersal potential, by using probabilistic framework to
+represent dispersal, is a way to describe landscape structure at any scale.
+
+- Spatial graph models as tool for modeling ecological processes across space and as generative models.
+- Emergent properties and the role of stochasticity
 
 # References

@@ -280,14 +280,17 @@ cases, dispersal-induced synchrony can increase the stability of the system
 Here, we treat each populations demographic stochasticity as independent to
 isolate the effect of migration on creating synchrony across populations.
 
-What now? - Test if diffusion and stochastic dispersal produce same behavior for
-a problem. - Why do we care? Diffusion is much faster to simulate. - Scale and
-what a location represents. We argue dispersal potential is a way to describe
-landscape structure at any scale. - Although at scales, the values of $m$ here
-seem high for many systems. however, if locations represent different
-microclimates, this can be reasonable - Spatial graph models as tool for
-modeling ecological processes across space and as generative models.   -
-Emergent properties and the role of stochasticity
+What now?
+- Test if diffusion and stochastic dispersal produce same behavior for
+a problem.
+- Why do we care? Diffusion is much faster to simulate.
+- Scale and what a location represents. We argue dispersal potential is a way to
+describe landscape structure at any scale.
+- Although at scales, the values of $m$ here seem high for many systems. however,
+if locations represent different microclimates, this can be reasonable
+- Spatial graph models as tool for
+modeling ecological processes across space and as generative models.   
+- Emergent properties and the role of stochasticity
 
 
 

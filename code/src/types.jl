@@ -83,12 +83,22 @@ end
 
     TODO
 """
-struct Treatment{T <: LocalDynamicsModel, V <: DispersalModel}
+struct Treatment
     metapopulation::Union{Metapopulation, MetapopulationGenerator}
-    local_dynamics_model::T
-    dispersal_model::V
-    Prθ::Priors{T,V}
+    dispersal::DispersalModel
+    localdynamics::LocalDynamicsModel
 end
+
+""" 
+    TreatmentSet
+
+    TODO 
+"""
+struct TreatmentSet
+    metadata::DataFrame
+    treatments::Vector{Treatment}
+end
+
 
 """
     Replicate
@@ -98,7 +108,6 @@ end
 struct Replicate
     metapopulation::Metapopulation
     trajectory::MetapopulationTrajectory
-    θ::ParameterValues
 end
 
 
@@ -111,7 +120,7 @@ struct DispersalPotential
     matrix::Matrix{Float64}
 end
 
-struct ExpKernel <: DispersalKernel 
+struct ExpKernel <: DispersalKernel
     α::Float64
     ExpKernel(α::Number) = new(α)
 end

@@ -38,7 +38,15 @@ struct DiffusionDispersal <: DispersalModel
     α::Number
 end
 Base.show(io::IO, dispersal_model::DispersalModel) = print(io, "Dispersal model with α = ", dispersal_model.α, ", m = ", dispersal_model.m)
-DiffusionDispersal(;m::Float64=0.1, α=3.0 ) = DiffusionDispersal(DispersalPotential(α), m)
+
+DiffusionDispersal(params::NamedTuple) = begin
+    # todo assert these exist
+    α = params.α
+    m = params.m
+    return DiffusionDispersal(α, m)
+end
+
+
 
 DiffusionMatrix(Φ::DispersalPotential, m::Number) = begin
     Nₚ = sizeof(Φ)[1]
@@ -50,8 +58,8 @@ DiffusionMatrix(Φ::DispersalPotential, m::Number) = begin
 end
 
 # implementation
-(dispersal_model::DiffusionDispersal)(state::MetapopulationState) = begin
-    D = DiffusionMatrix(dispersal_model.Φ, dispersal_model.m)
+(dispersal_model::DiffusionDispersal)(state::MetapopulationState, Φ::DispersalPotential, m::Float64) = begin
+    D = DiffusionMatrix(Φ, m)
     return MetapopulationState(D*state)
 end
 

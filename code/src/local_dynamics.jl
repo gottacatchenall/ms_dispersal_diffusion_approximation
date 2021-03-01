@@ -2,17 +2,14 @@
 """
     RickerModel
 """
-struct RickerModelParameterValues <: ParameterValues
+struct RickerModel <: LocalDynamicsModel
     λ::Number
     χ::Number
     R::Number
 end
-struct RickerModel <: LocalDynamicsModel
-    θ::RickerModelParameterValues
-end
 
-RickerModel(; θ::RickerModelParameterValues=RickerModelParameterValues()) = RickerModel(θ)
-RickerModelParameterValues(; λ::Number=5, χ::Number=0.03, R::Number=0.9) = RickerModelParameterValues(λ, χ, R)
+RickerModel(params::NamedTuple) = RickerModel(params.λ, params.χ, params.R)
 
-(ricker::RickerModel)(N::Number) = (rand(Poisson(N * ricker.θ.λ * ricker.θ.R * exp(-1*N*ricker.θ.χ))))
+
+(ricker::RickerModel)(N::Number) = (N > 0) ? rand(Poisson(N * ricker.λ * ricker.R * exp(-1*N*ricker.χ))) : 0
 (ricker::RickerModel)(state::MetapopulationState) = MetapopulationState(map(i -> ricker(i), state.abundances))

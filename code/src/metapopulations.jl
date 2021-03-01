@@ -10,7 +10,14 @@ Population(;number_of_dimensions=2) = Population(rand(Uniform(), number_of_dimen
 
     Constructs a Metapopulation.
 """
-Metapopulation(;number_of_populations::Int=10) = Metapopulation([Population() for p in 1:number_of_populations])
+Metapopulation(;numlocations::Int=10) = Metapopulation([Population() for p in 1:numlocations])
+
+
+struct PoissonProcess <: MetapopulationGenerator
+    numlocations::Int
+    PoissonProcess(;numlocations::Number=20) = new(numlocations)
+end
+(proc::PoissonProcess)() = Metapopulation(numlocations=proc.numlocations)
 
 
 """
