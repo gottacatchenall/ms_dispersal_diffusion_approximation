@@ -1,7 +1,9 @@
 module MetapopulationDynamics
     using Plots.RecipesBase
     using Distributions: Poisson, Uniform, DiscreteUniform
+    using StatsBase: crosscor
     using DataFrames: DataFrame
+    using ProgressMeter
     using Distances: Euclidean, evaluate
 
     include(joinpath(".", "types.jl"))

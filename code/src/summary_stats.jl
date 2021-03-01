@@ -1,4 +1,4 @@
-function pcc(traj::MetapopulationTrajectory)
+function (pcc::PCC)(traj::MetapopulationTrajectory)
     matrix = Matrix(traj)
     Nₚ = length(traj.trajectory[1])
     mean_cc::Float64 = 0.0

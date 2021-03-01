@@ -101,14 +101,12 @@ end
 
 
 """
-    Replicate
+    PCC
 
     TODO
 """
-struct Replicate
-    metapopulation::Metapopulation
-    trajectory::MetapopulationTrajectory
-end
+abstract type SummaryStat end
+struct PCC <: SummaryStat end
 
 
 """

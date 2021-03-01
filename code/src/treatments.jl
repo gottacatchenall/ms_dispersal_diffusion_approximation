@@ -44,3 +44,6 @@ function TreatmentSet(
 end
 Base.getindex(ts::TreatmentSet, index::Int) = ts.treatments[index]
 Base.show(io::IO, ts::TreatmentSet) = print(io,"treatment set containing ", length(ts.treatments), " treatments")
+Base.iterate(ts::TreatmentSet) = iterate(ts.treatments)
+Base.iterate(ts::TreatmentSet, i::Int) = iterate(ts.treatments, i)
+Base.length(ts::TreatmentSet) = length(ts.treatments)
