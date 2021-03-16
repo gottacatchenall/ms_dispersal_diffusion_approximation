@@ -14,7 +14,7 @@ understanding how habitat structure effects the movement and dispersal of
 organisms, and how this scales up to explain the abundance and distribution of
 species across space, is a primary aim of landscape ecology. Models in landscape
 ecology---analytic, computational, and statistical--- have long used diffusion
-to approximate model how organisms move or disperse between habitat patches.
+to approximate model how organisms move or disperse between habitat patches [@Okubo2001DifEco; @Hastings1978GloSta].
 
 What does it mean that model uses diffusion? The way in which
 organisms move from one habitat patch to another, via active or passive
@@ -60,7 +60,7 @@ does not.
 ## Landscape connectivity model
 
 Spatial graphs have long been used to model a system of habitat patches in a
-landscape [@Dale2010GraSpa, @Minor2008GraFra, @Urban2001LanCon].
+landscape [@Dale2010GraSpa; @Minor2008GraFra; @Urban2001LanCon].
 Here, we use a model of a landscape, represented as a set of locations $L$ in a
 spatial graph $G$, where the edges represent dispersal between populations. To
 describe how the edges of this network describe dispersal, we choose to model
@@ -183,7 +183,11 @@ intrinsic to a species.
 ![TODO Caption](./figures/connectivity_demography_lattice.png){#fig:lattice}
 
 
-Why is it that we see a response to $\lambda$? Consider what we know about the Ricker model,
+Why is it that we see a response to $\lambda$? Consider what we know about the Ricker model,By comparing the synchrony created by stochastic
+dispersal and diffusion models, we show there are two distinct regimes: a regime
+where diffusion well approximates stochastic dispersal, and a regime where it
+does not.
+
 higher $\lambda$ without changing other parameters means the mean population size increases.
 As the mean population size increases, the size of the sampling distribution of dispersers at each timestep
 increases, and we expect this distribution to converge to $\Phi$ as the number of migrants increases toward infinity.
@@ -199,18 +203,30 @@ At higher value of $m$, more dispersal events occur,
 
 # Discussion
 
+When developing models to understand and predict how landscape structure effects
+ecological processes, diffusion can be a convenient abstraction to speed up computation in some cases.
+
+Here we show that diffusion can artificially synchronize dynamics across space.
+
+Spatial synchrony of population dynamics is generally of interest.
+Dispersal induced synchrony can increase population stability, up until a certain threshold where the dynamics become so highly synchronized that they increase extinction risk [@Abbott2011DisPar].
+
+
+The point goes beyond synchrony.
 The major point we intend to make here is that if one is developing an
 ecological model that involves organisms moving across space, it is
 imperative to test whether stochastic and diffusion dispersal produce similar
 results. Diffusion can often be a valuable abstraction that make computation
-faster. "Understanding the scope and proprer domain of each abstraction" [@Levins1972DiaBio]
+faster. "Understanding the scope and proprer domain of each abstraction" [@Levins1987DiaBio]
 One way to view this is diffusion ignores temporal variation in dispersal.
 
-Another important consideration for this work is what is meant by a "location" within
-our model. Although we frame this in terms of habitat patches, what an individual point
-in a spatial network represents is a convenient abstract to represent the spatial dimension
-of ecologlcal processes. We argue the dispersal potential, by using probabilistic framework to
-represent dispersal, is a way to describe landscape structure at any scale.
+
+Another important consideration for this work is what is meant by a "location"
+within our model. Although we frame this in terms of habitat patches, what an
+individual point in a spatial network represents is a convenient abstract to
+represent the spatial dimension of ecological processes. We argue the dispersal
+potential, by using probabilistic framework to represent dispersal, is a way to
+describe landscape structure at any scale.
 
 - Spatial graph models as tool for modeling ecological processes across space and as generative models.
 - Emergent properties and the role of stochasticity
