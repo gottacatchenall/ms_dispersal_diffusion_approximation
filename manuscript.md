@@ -4,18 +4,17 @@ bibliography: [references.bib]
 
 # Introduction
 
-Human activity is leaving Earth's "natural" habitats
-fragmented and patchy. Understanding how this change in landscape structure affects
-ecological processes remains a fundamental goal of landscape ecology. It us well
-understood that landscape structure influences ecosystem processes [@cite] and
-that promoting landscape connectivity can mitigate the negative effects of
-habitat loss on ecosystem functioning [@resascoMetaanalysisDecadeTesting2019].
-As a result understanding how habitat structure effects the movement and
-dispersal of organisms, and how this scales up to explain the abundance and
-distribution of species across space, is a primary aim of landscape ecology.
-Models in landscape ecology---analytic, computational, and statistical--- have
-long used diffusion to approximate model how organisms move or disperse between
-habitat patches.
+Human activity is leaving Earth's "natural" habitats fragmented and patchy.
+Understanding how change in landscape structure affects ecological processes
+remains a fundamental goal of landscape ecology. It us well understood that
+landscape structure influences ecosystem processes [@cite] and that promoting
+landscape connectivity can mitigate the negative effects of habitat loss on
+ecosystem functioning [@resascoMetaanalysisDecadeTesting2019]. As a result
+understanding how habitat structure effects the movement and dispersal of
+organisms, and how this scales up to explain the abundance and distribution of
+species across space, is a primary aim of landscape ecology. Models in landscape
+ecology---analytic, computational, and statistical--- have long used diffusion
+to approximate model how organisms move or disperse between habitat patches.
 
 What does it mean that model uses diffusion? The way in which
 organisms move from one habitat patch to another, via active or passive
@@ -157,7 +156,7 @@ individual goes from the distribution $\Phi^{(i)}$.
 
 In ecology and other fields, the crosscorrelation function, \(CC\), has long
 been used as a measure of the synchrony between two time-series
-[liebold_spatial_2004]. Here, with a metapopulation, we consider the mean
+[@liebold_spatial_2004]. Here, with a metapopulation, we consider the mean
 crosscorrelation across all pairs of populations, which we call the
 Pairwise-Crosscorrelation ($\text{PCC}$) and compute as
 
@@ -167,22 +166,46 @@ where $N_i$ is the time-series of abundances at population $i$.
 
 # Results
 
+We begin by considering how the level of synchony, measured by $PCC$ changes as
+a function of the intrinsitc migration probability $m$. In figure @fig:migration_gradient,
+we see how $PCC$ changes in response to $m$ at varying levels of both landscape connectivity $\alpha$
+and intrinsic growth rate $\lambda$. We see that under some combinations of $\alpha$, $\lambda$, and $m$
+both stochastic dispersal and diffusion produce similar levels of synchrony, however at some parameterizations
+diffusion produces more synchronous dynamics than stochastic dispersal.
 
-![](./figures/migration_gradient_panels.png)
+![](./figures/migration_gradient_panels.png){#fig:migration_gradient}
 
-![](./figures/connectivity_demography_lattice.png)
+To better understand this, we consider "mapping" this difference in the
+parameter space defined  by varying levels of landscape connectivity $\alpha$
+and intrinsic growth rate $\lambda$ at "snapshots" of various value of intrinsic
+dispersal rate $m$ (@fig:lattice). Dispersal rate is often treated as a property
+intrinsic to a species.
 
-![](./figures/runtime.png)
+![](./figures/connectivity_demography_lattice.png){#fig:lattice}
+
+
+Why is it that we see a response to $\lambda$? Consider what we know about the Ricker model,
+higher $\lambda$ without changing other parameters means the mean population size increases.
+As the mean population size increases, the size of the sampling distribution of dispersers at each timestep
+increases, and we expect this distribution to converge to $\Phi$ as the number of migrants increases toward infinity.
+
+
+We conclude by emphasizing the difference in simulation time between these models, especially
+as the number of spatial locations increases.
+This is compounded by stochastic dispersal's runtime is sensitive to the intrinsic migration probability $m$.
+At higher value of $m$, more dispersal events occur,
+
+![](./figures/runtime.png){#fig:runtime}
 
 
 # Discussion
-The major point we intend to make here is that if one is developing an
-ecological model that involves organisms dispersing across space, it is
-imperative to test whether stochastic and diffusion dispersal produce similar
-results. diffusion can often be a valuable abstraction that make computation
-faster. But the implementation of abstract (Levins)
 
-Diffusion is an abstract of the true process of dispersal. one way to view this is diffusion ignores temporal variation in dispersal.
+The major point we intend to make here is that if one is developing an
+ecological model that involves organisms moving across space, it is
+imperative to test whether stochastic and diffusion dispersal produce similar
+results. Diffusion can often be a valuable abstraction that make computation
+faster. "Understanding the scope and proprer domain of each abstraction" [@Levins1972DiaBio]
+One way to view this is diffusion ignores temporal variation in dispersal.
 
 Another important consideration for this work is what is meant by a "location" within
 our model. Although we frame this in terms of habitat patches, what an individual point
@@ -192,5 +215,8 @@ represent dispersal, is a way to describe landscape structure at any scale.
 
 - Spatial graph models as tool for modeling ecological processes across space and as generative models.
 - Emergent properties and the role of stochasticity
+
+### Acknowledgments
+
 
 # References
