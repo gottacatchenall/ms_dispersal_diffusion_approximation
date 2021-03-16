@@ -54,6 +54,8 @@ dispersal and diffusion models, we show there are two distinct regimes: a regime
 where diffusion well approximates stochastic dispersal, and a regime where it
 does not.
 
+![](./figures/synchrony_example.png)
+
 
 ## Landscape connectivity model
 
