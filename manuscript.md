@@ -9,7 +9,7 @@ Understanding how change in landscape structure affects ecological processes
 remains a fundamental goal of landscape ecology. It us well understood that
 landscape structure influences ecosystem processes [@cite] and that promoting
 landscape connectivity can mitigate the negative effects of habitat loss on
-ecosystem functioning [@resascoMetaanalysisDecadeTesting2019]. As a result
+ecosystem functioning [@Resasco2019MetDec]. As a result
 understanding how habitat structure effects the movement and dispersal of
 organisms, and how this scales up to explain the abundance and distribution of
 species across space, is a primary aim of landscape ecology. Models in landscape
@@ -26,7 +26,7 @@ assumption creates artificially synchronized dynamics across space.
 
 Why is it important we understand when dispersal is a valid approximation of dispersal?
 In order to design landscapes that mitigate biodiversity loss and its effects
-[@albertApplyingNetworkTheory2017], we need models to understand how landscape
+[@Albert2017AppNet], we need models to understand how landscape
 structure affects ecological processes. Understanding when dispersal is
 well-approximated by diffusion, and when it isn't, is important because
 diffusion models are much less computationally expensive.
@@ -60,7 +60,7 @@ does not.
 ## Landscape connectivity model
 
 Spatial graphs have long been used to model a system of habitat patches in a
-landscape [dale_graphs_2010, minor_graph-theory_2008, urban_landscape_2001].
+landscape [@Dale2010GraSpa, @Minor2008GraFra, @Urban2001LanCon].
 Here, we use a model of a landscape, represented as a set of locations $L$ in a
 spatial graph $G$, where the edges represent dispersal between populations. To
 describe how the edges of this network describe dispersal, we choose to model
@@ -82,7 +82,7 @@ relationship, $\alpha$, which is treated as an intrinsic value of a species
 dispersal capacity.
 
 The form of the IBD relationship long called the dispersal kernel
-[@grilli_metapopulation_2015, @hanski_practical_1994], we consider an
+[@Grilli2015MetPer; @Hanski1994PraMod], we consider an
 exponential with decay-strength $\alpha$ and a cutoff value $\epsilon$,
 
 $$f(d_{ij}, \alpha, \epsilon) =  \begin{cases} e^{-\alpha d_{ij}}
@@ -119,7 +119,7 @@ here), and where $\lambda$ is the mean number of offspring for each individual
 that reproduces---yielding three total parameters: $\theta = \{\lambda, R, \chi
 \}$.  We consider the simplest variation on the model, which only includes
 demographic stochasticity, however it is straightforward to extend this to other
-forms of stochasticity [@melbourne_extinction_2008].
+forms of stochasticity [@Melbourne2008ExtRis].
 
 
 ## Dispersal Models
@@ -155,8 +155,7 @@ individual goes from the distribution $\Phi^{(i)}$.
 ## Measuring Synchrony
 
 In ecology and other fields, the crosscorrelation function, \(CC\), has long
-been used as a measure of the synchrony between two time-series
-[@liebold_spatial_2004]. Here, with a metapopulation, we consider the mean
+been used as a measure of the synchrony between two time-series. Here, with a metapopulation, we consider the mean
 crosscorrelation across all pairs of populations, which we call the
 Pairwise-Crosscorrelation ($\text{PCC}$) and compute as
 
