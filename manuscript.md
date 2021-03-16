@@ -109,7 +109,7 @@ isolation-by-distance strength, $\alpha$.
 ## Local population dynamics model
 
 We model local population dynamics using the Ricker Model. At each timestep, the
-abundance $N_i$ at location $i$ is drawn from
+abundance $N_i$ at location $i$ is drawn from as
 
 $$N_i(t+1) \sim \text{Poisson}\bigg(N_i(t) \lambda R e^{- \chi N_i(t)}\bigg)$$
 
@@ -138,12 +138,15 @@ described by the mapping
 
 $$N_i(t+1) = \sum_j D_{ji} N_j(t)$$
 
+
 which can be combined into the local Ricker model from above as
 reaction-diffusion model by computing diffusion before each round of local
 dynamics.
 
+
 $$N_i(t+1) \sim \text{Poisson}\bigg( \lambda R e^{-\chi \big(\sum_j D_{ji}
 N_j(t)\big)} \cdot \sum_j D_{ji} N_j(t) \bigg)$$
+
 
 ### Stochastic Dispersal
 
