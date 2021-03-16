@@ -109,7 +109,7 @@ isolation-by-distance strength, $\alpha$.
 ## Local population dynamics model
 
 We model local population dynamics using the Ricker Model. At each timestep, the
-abundance $N_i$ at location $i$ is drawn from as
+abundance $N_i$ at location $i$ is drawn as
 
 $$N_i(t+1) \sim \text{Poisson}\bigg(N_i(t) \lambda R e^{- \chi N_i(t)}\bigg)$$
 
@@ -162,20 +162,39 @@ been used as a measure of the synchrony between two time-series. Here, with a me
 crosscorrelation across all pairs of populations, which we call the
 Pairwise-Crosscorrelation ($\text{PCC}$) and compute as
 
-$$\text{PCC}=\frac{1}{N_p(N_p-1)}\sum_{i > j} CC(N_i,N_j)$$
+$$\text{PCC}=\frac{1}{(N_p-1)^2}\sum_{i \neq j} CC(\vec{N_i},\vec{N_j})$$
 
-where $N_i$ is the time-series of abundances at population $i$.
+where $\vec{N_i}$ is the time-series of abundances at population $i$.
 
 # Results
 
-We begin by considering how the level of synchony, measured by $PCC$ changes as
-a function of the intrinsitc migration probability $m$. In figure @fig:migration_gradient,
+We begin by considering how the level of synchrony, measured by $PCC$ changes as
+a function of the intrinsic dispersal probability $m$. In figure @fig:migration_gradient,
 we see how $PCC$ changes in response to $m$ at varying levels of both landscape connectivity $\alpha$
 and intrinsic growth rate $\lambda$. We see that under some combinations of $\alpha$, $\lambda$, and $m$
-both stochastic dispersal and diffusion produce similar levels of synchrony, however at some parameterizations
-diffusion produces more synchronous dynamics than stochastic dispersal.
+both stochastic dispersal and diffusion produce similar levels of synchrony, however at some parameterizations diffusion artificially creates more synchronous dynamics where  stochastic dispersal does not generate synchrony.
 
 ![TODO Caption](./figures/migration_gradient_panels.png){#fig:migration_gradient}
+
+At low $\lambda$, the diffusion model produces increasingly synchronized
+population dynamics as migration increases; however, the stochastic dispersal
+model produces effectively no synchrony regardless of migration rate. Yet, as
+$\lambda$ increases, we see two phenomena: 1) the distribution of $\text{PCC}$
+for both diffusion and stochastic model begin to move closer to one another, and
+2) the shift from non-synchronized to synchronized dynamics becomes more
+"critical", meaning it rapidly jumps to near $\text{PCC}=1.0$ as $m$ increases.
+As we increase $\lambda$, the gap between the diffusion and stochastic PCC
+distributions shrinks.  As we increase $\alpha$ to create more modular habitat
+networks, we see two phenomena depending on the value of $\lambda$. At low
+$\lambda$, the diffusion model produces lower synchrony and the stochastic
+dispersal model continues to produce asynchronous dynamics. However, as
+$\lambda$ increases, we see the difference in PCC between diffusion and
+stochastic dispersal models shrink, as before, but the amount of variance in
+this estimate increases and we increase the modularity of the habitat network
+($\alpha$). In this case, the spatial configuration of habitat patches, and how
+the dispersal structure of a randomly generated habitat network changes with
+$\alpha$, is driving greater variation in the amount of synchrony observed at a
+given set of parameter values.  
 
 To better understand this, we consider "mapping" this difference in the
 parameter space defined  by varying levels of landscape connectivity $\alpha$
