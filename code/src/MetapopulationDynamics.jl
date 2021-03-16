@@ -1,6 +1,6 @@
 module MetapopulationDynamics
     using Plots.RecipesBase
-    using Distributions: Poisson, Uniform, DiscreteUniform
+    using Distributions: Poisson, Uniform, DiscreteUniform, Binomial, Categorical, Normal
     using StatsBase: crosscor
     using DataFrames: DataFrame
     using ProgressMeter
@@ -8,7 +8,7 @@ module MetapopulationDynamics
 
     include(joinpath(".", "types.jl"))
 
-    
+
 
     include(joinpath(".", "metapopulations.jl"))
     export Population,Metapopulation,MetapopulationGenerator,PoissonProcess
@@ -17,14 +17,14 @@ module MetapopulationDynamics
     export MetapopulationState,MetapopulationTrajectory
 
     include(joinpath(".", "dispersal.jl"))
-    export DispersalModel,DispersalPotential,DiffusionDispersal,StochasticDispersal, ExpKernel
+    export DispersalModel,DispersalPotential,DiffusionDispersal,StochasticDispersal,NoDispersal,ExpKernel
 
     include(joinpath(".", "local_dynamics.jl"))
-    export LocalDynamicsModel, RickerModel
+    export LocalDynamicsModel, RickerModel, StochasticLogistic
 
     include(joinpath(".", "visualisation.jl"))
     include(joinpath(".", "summary_stats.jl"))
-
+    export PCC, subsample
     include(joinpath(".", "treatments.jl"))
     export Treatment,TreatmentSet,Replicate, metadata
 
@@ -32,3 +32,4 @@ module MetapopulationDynamics
     include(joinpath(".", "simulation.jl"))
     export simulate
 end
+

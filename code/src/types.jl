@@ -59,21 +59,12 @@ abstract type MetapopulationGenerator end
 
 
 """
-    MetapopulationState
-
-    TODO
-"""
-struct MetapopulationState{T <: Number}
-    abundances::Vector{T}
-end
-
-"""
     MetapopulationTrajectory
 
     TODO
 """
 struct MetapopulationTrajectory
-    trajectory::Vector{MetapopulationState}
+    trajectory::Array{NT, 2} where {NT <: Real}
 end
 
 
@@ -106,7 +97,9 @@ end
     TODO
 """
 abstract type SummaryStat end
-struct PCC <: SummaryStat end
+struct PCC <: SummaryStat 
+    subsample_frequency::Int
+end
 
 
 """

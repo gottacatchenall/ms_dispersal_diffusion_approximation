@@ -1,20 +1,15 @@
 using MetapopulationDynamics
-using CSV 
-
-rickerparams = (λ = collect(2:0.5:10), χ=0.03, R=0.9)
-dispersalparams = (m = 0.0:0.01:1, α = 3.0)
-
-params = merge(rickerparams, dispersalparams)
+using Plots
 
 
-treatments = TreatmentSet(
-    PoissonProcess(numlocations = 30),
-    DiffusionDispersal, 
-    RickerModel,
-    params
-)
+mp = PoissonProcess(numlocations=10)
+t = Treatment(mp, DiffusionDispersal(0, 0.7), RickerModel(15, 0.03, 0.9))
 
-data = simulate(treatments)
 
-CSV.write("data.csv", data)
-CSV.write("metadata.csv", treatments.metadata)
+t = Treatment(mp, StochasticDispersal(0,0.9), RickerModel(15, 0.03, 0.9))
+traj = simulate(t)
+
+traj.trajectory
+
+plot(subsample(traj,10)')
+PCC(10)(traj)

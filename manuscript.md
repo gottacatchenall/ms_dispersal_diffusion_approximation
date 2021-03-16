@@ -4,9 +4,9 @@ bibliography: [references.bib]
 
 # Introduction
 
-Human activity is rapidly altering our planet, leaving Earth's habitats
-fragmented and patchy. Understanding the effects of this change on ecological
-processes remains a fundamental goal of landscape ecology. It us well
+Human activity is leaving Earth's "natural" habitats
+fragmented and patchy. Understanding how this change in landscape structure affects
+ecological processes remains a fundamental goal of landscape ecology. It us well
 understood that landscape structure influences ecosystem processes [@cite] and
 that promoting landscape connectivity can mitigate the negative effects of
 habitat loss on ecosystem functioning [@resascoMetaanalysisDecadeTesting2019].
@@ -15,7 +15,9 @@ dispersal of organisms, and how this scales up to explain the abundance and
 distribution of species across space, is a primary aim of landscape ecology.
 Models in landscape ecology---analytic, computational, and statistical--- have
 long used diffusion to approximate model how organisms move or disperse between
-habitat patches. What does it mean that model uses diffusion? The way in which
+habitat patches.
+
+What does it mean that model uses diffusion? The way in which
 organisms move from one habitat patch to another, via active or passive
 dispersal, is inherently stochastic. Diffusion approximates this stochastic
 process by assuming the that stochastic process of movement of organisms between
@@ -162,6 +164,11 @@ where $N_i$ is the time-series of abundances at population $i$.
 
 # Results
 
+![](./figures/migration_gradient_panels.png)
+
+![](./figures/connectivity_demography_lattice.png)
+
+![](./figures/runtime.png)
 
 
 # Discussion
