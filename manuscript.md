@@ -42,6 +42,8 @@ caused by both the modularity of the dispersal network and demographic
 parameters. We show that what distinguishes these regimes is whether the primary
 source of variation in population dynamics is either dispersal or demography.
 
+![](./figures/synchrony_example.png)
+
 # A model of metapopulation dynamics
 
 Here, we present a model of metapopulation dynamics on spatial graphs.
@@ -54,7 +56,6 @@ dispersal and diffusion models, we show there are two distinct regimes: a regime
 where diffusion well approximates stochastic dispersal, and a regime where it
 does not.
 
-![](./figures/synchrony_example.png)
 
 
 ## Landscape connectivity model
@@ -81,8 +82,8 @@ distance between them, $d_{ij}$, and the strength of this isolation-by-distance
 relationship, $\alpha$, which is treated as an intrinsic value of a species
 dispersal capacity.
 
-The form of the IBD relationship, called the dispersal kernel
-[grilli_metapopulation_2015, hanski_practical_1994], we consider an
+The form of the IBD relationship long called the dispersal kernel
+[@grilli_metapopulation_2015, @hanski_practical_1994], we consider an
 exponential with decay-strength $\alpha$ and a cutoff value $\epsilon$,
 
 $$f(d_{ij}, \alpha, \epsilon) =  \begin{cases} e^{-\alpha d_{ij}}
@@ -119,7 +120,7 @@ here), and where $\lambda$ is the mean number of offspring for each individual
 that reproduces---yielding three total parameters: $\theta = \{\lambda, R, \chi
 \}$.  We consider the simplest variation on the model, which only includes
 demographic stochasticity, however it is straightforward to extend this to other
-forms of stochasticity \cite{melbourne_extinction_2008}.
+forms of stochasticity [@melbourne_extinction_2008].
 
 
 ## Dispersal Models
@@ -165,6 +166,7 @@ $$\text{PCC}=\frac{1}{N_p(N_p-1)}\sum_{i > j} CC(N_i,N_j)$$
 where $N_i$ is the time-series of abundances at population $i$.
 
 # Results
+
 
 ![](./figures/migration_gradient_panels.png)
 

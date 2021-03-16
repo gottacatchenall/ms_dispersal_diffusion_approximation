@@ -5,29 +5,29 @@ using MetapopulationDynamics
 using Plots, DataFrames
 using StatsBase: mean, quantile, std
 
-rickerparams = (λ = [5, 10, 15], χ=0.03, R=0.9)
-dispersalparams = (m = 0.0:0.01:1, α = [0., 5., 10.])
+rickerparams = (λ = [8, 10, 12], χ=0.03, R=0.9)
+dispersalparams = (m = 0.0:0.01:1, α = [3, 6, 9])
 
 params = merge(rickerparams, dispersalparams)
 
 
 diffTreatments = TreatmentSet(
     PoissonProcess(numlocations = 15),
-    DiffusionDispersal, 
+    DiffusionDispersal,
     RickerModel,
     params
 )
-diffusion_data = simulate(diffTreatments; numreplicates=30)
+diffusion_data = simulate(diffTreatments; numreplicates=100)
 diff_df = innerjoin(diffusion_data, diffTreatments.metadata, on=:treatment)
 
 
 stochTreatments = TreatmentSet(
-    PoissonProcess(numlocations = 15), 
+    PoissonProcess(numlocations = 15),
     StochasticDispersal,
     RickerModel,
     params
 )
-stoch_data = simulate(stochTreatments; numreplicates=30)
+stoch_data = simulate(stochTreatments; numreplicates=100)
 stoch_df = innerjoin(stoch_data, stochTreatments.metadata, on=:treatment)
 
 M = unique(stoch_df, :m).m
@@ -65,4 +65,4 @@ for λ in Λ
 end
 
 fig = plot(plts..., layout=(3,3), size=(1000,1000))
-savefig(fig, "stochacstic_vs_dispersal_panels.png")
+savefig(fig, "stochastic_vs_dispersal_panels.png")
