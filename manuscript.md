@@ -41,7 +41,7 @@ caused by both the modularity of the dispersal network and demographic
 parameters. We show that what distinguishes these regimes is whether the primary
 source of variation in population dynamics is either dispersal or demography.
 
-![](./figures/synchrony_example.png)
+![TODO Caption](./figures/synchrony_example.png){#fig:example}
 
 # A model of metapopulation dynamics
 
@@ -173,7 +173,7 @@ and intrinsic growth rate $\lambda$. We see that under some combinations of $\al
 both stochastic dispersal and diffusion produce similar levels of synchrony, however at some parameterizations
 diffusion produces more synchronous dynamics than stochastic dispersal.
 
-![](./figures/migration_gradient_panels.png){#fig:migration_gradient}
+![TODO Caption](./figures/migration_gradient_panels.png){#fig:migration_gradient}
 
 To better understand this, we consider "mapping" this difference in the
 parameter space defined  by varying levels of landscape connectivity $\alpha$
@@ -181,7 +181,7 @@ and intrinsic growth rate $\lambda$ at "snapshots" of various value of intrinsic
 dispersal rate $m$ (@fig:lattice). Dispersal rate is often treated as a property
 intrinsic to a species.
 
-![](./figures/connectivity_demography_lattice.png){#fig:lattice}
+![TODO Caption](./figures/connectivity_demography_lattice.png){#fig:lattice}
 
 
 Why is it that we see a response to $\lambda$? Consider what we know about the Ricker model,
@@ -195,7 +195,7 @@ as the number of spatial locations increases.
 This is compounded by stochastic dispersal's runtime is sensitive to the intrinsic migration probability $m$.
 At higher value of $m$, more dispersal events occur,
 
-![](./figures/runtime.png){#fig:runtime}
+![TODO Caption](./figures/runtime.png){#fig:runtime}
 
 
 # Discussion

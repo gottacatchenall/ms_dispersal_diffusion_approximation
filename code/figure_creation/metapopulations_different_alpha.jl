@@ -52,3 +52,5 @@ himpplot = plotmp(mp(), α=3, m=0.25)
 plts = [lowmpplt, midmpplt, himpplot, lowplt,midplt,hiplt]
 
 combinedplt = plot(plts..., layout=(2,3), size=(1500, 800))
+
+savefig(combinedplt, "metapops_synchrony_example.png")

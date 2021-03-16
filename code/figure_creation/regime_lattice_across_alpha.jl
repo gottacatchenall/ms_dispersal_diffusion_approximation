@@ -50,7 +50,7 @@ for m in M
 
         end
     end
-    pl = heatmap(A, Λ, mat, title="m=$m",lim=(0,1))
+    pl = contourf(A, Λ, mat, title="m=$m",lim=(0,1))
     xlabel!("α")
     ylabel!("λ")
     push!(plts, pl)

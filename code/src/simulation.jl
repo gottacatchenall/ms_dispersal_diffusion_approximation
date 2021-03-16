@@ -11,7 +11,7 @@ function simulate(localdynamics::LT,
     localdynamics(st)
 end
 
-function MetapopulationDynamics.simulate(
+function simulate(
     treatment::Treatment; 
     mp::Metapopulation = treatment.metapopulation(),
     trajectory = MetapopulationTrajectory(numlocations=sizeof(mp), numtimesteps=300)
@@ -32,18 +32,22 @@ function MetapopulationDynamics.simulate(
     return trajectory
 end
 
-function simulate(treatment_set::TreatmentSet; summary_stat::SummaryStat = PCC(10), numreplicates::Int=50)
+function simulate(treatment_set::TreatmentSet; summary_stats::Vector{SummaryStat} = [MeanAbundance(10),PCC(10)], numreplicates::Int=50)
     numrows = numreplicates * length(treatment_set)
     data = DataFrame(
         treatment = [i for i in 1:numrows],
-        stat = zeros(numrows)
     )
+    for s in summary_stats
+        data[!, Symbol(s)] = zeros(numrows)
+    end
 
     row = 1
     @showprogress for (t, treatment) in enumerate(treatment_set)
         for r in 1:numreplicates
             traj::MetapopulationTrajectory = simulate(treatment)
-            data[row, :stat] = summary_stat(traj)
+            for s in summary_stats
+                data[row, Symbol(s)] = s(traj)
+            end
             data[row, :treatment] = t
             row += 1
         end

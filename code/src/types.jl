@@ -100,7 +100,9 @@ abstract type SummaryStat end
 struct PCC <: SummaryStat 
     subsample_frequency::Int
 end
-
+struct MeanAbundance <: SummaryStat 
+    subsample_frequency::Int
+end
 
 """
     DispersalPotential

@@ -1,7 +1,7 @@
 module MetapopulationDynamics
     using Plots.RecipesBase
     using Distributions: Poisson, Uniform, DiscreteUniform, Binomial, Categorical, Normal
-    using StatsBase: crosscor
+    using StatsBase: crosscor, mean, std
     using DataFrames: DataFrame
     using ProgressMeter
     using Distances: Euclidean, evaluate
@@ -24,7 +24,7 @@ module MetapopulationDynamics
 
     include(joinpath(".", "visualisation.jl"))
     include(joinpath(".", "summary_stats.jl"))
-    export PCC, subsample
+    export PCC, subsample, MeanAbundance, SummaryStat
     include(joinpath(".", "treatments.jl"))
     export Treatment,TreatmentSet,Replicate, metadata
 
