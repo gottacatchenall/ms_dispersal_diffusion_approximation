@@ -4,17 +4,25 @@ bibliography: [references.bib]
 
 # Introduction
 
-Human activity is leaving Earth's "natural" habitats fragmented and patchy.
-Understanding how change in landscape structure affects ecological processes
-remains a fundamental goal of landscape ecology. It us well understood that
-landscape structure influences ecosystem processes [@cite] and that promoting
-landscape connectivity can mitigate the negative effects of habitat loss on
-ecosystem functioning [@Resasco2019MetDec]. As a result
+Human activity is changing the face of Earth, leaving landscapes that are
+fragmented and patchy.
+
+It us well
+understood that landscape structure influences ecosystem processes [@cite].
+Understanding how landscape structure affects
+ecological processes remains a fundamental goal of ecological research.
+
+Landscape connectivity can mitigate the negative effects of
+habitat loss on ecosystem functioning, through corridors [@Resasco2019MetDec].
+
+
+As a result
 understanding how habitat structure effects the movement and dispersal of
 organisms, and how this scales up to explain the abundance and distribution of
 species across space, is a primary aim of landscape ecology. Models in landscape
 ecology---analytic, computational, and statistical--- have long used diffusion
-to approximate model how organisms move or disperse between habitat patches [@Okubo2001DifEco; @Hastings1978GloSta].
+to approximate model how organisms move or disperse between habitat patches
+[@Okubo2001DifEco; @Hastings1978GloSta].
 
 What does it mean that model uses diffusion? The way in which
 organisms move from one habitat patch to another, via active or passive
@@ -43,7 +51,7 @@ source of variation in population dynamics is either dispersal or demography.
 
 ![TODO Caption](./figures/synchrony_example.png){#fig:example}
 
-# A model of metapopulation dynamics
+# Methods
 
 Here, we present a model of metapopulation dynamics on spatial graphs.
 This model contains three parts: a model of landscape connectivity, a model of
@@ -59,16 +67,21 @@ does not.
 
 ## Landscape connectivity model
 
-Spatial graphs have long been used to model a system of habitat patches in a
-landscape [@Dale2010GraSpa; @Minor2008GraFra; @Urban2001LanCon].
-Here, we use a model of a landscape, represented as a set of locations $L$ in a
-spatial graph $G$, where the edges represent dispersal between populations. To
-describe how the edges of this network describe dispersal, we choose to model
-landscape connectivity as a combination of two different factors: the
-probability than any individual migrates during its lifetime, $m$, and the
-conditional distribution over spatial nodes of where an individual goes ($j \in
-L$), given both that it migrates $m$ and where it started ($i \in L$), which we
-call the dispersal potential and denote
+Spatial graphs have long been used to model a system of habitat patches (nodes)
+connected by dispersal (edges, which combined form a landscape [@Dale2010GraSpa;
+@Minor2008GraFra; @Urban2001LanCon].
+
+// have to define connectivity
+
+To describe how the edges of this spatial graph
+describe dispersal,
+
+
+we model landscape connectivity as a combination
+of two different factors: the probability than any individual migrates during
+its lifetime, $m$, and the conditional distribution over spatial nodes of where
+an individual goes ($j \in L$), given both that it migrates $m$ and where it
+started ($i \in L$), which we call the dispersal potential and denote
 
 $$\Phi_{ij} =  P(i \to j | m)$$
 
@@ -77,13 +90,11 @@ relative cost of movement from one point to another is often estimated with
 resistance surfaces [spear_use_2010]. Here we model the dispersal potential
 using isolation-by-distance (IBD), which assumes the relative probability of
 dispersal from location $i$ to location $j$ is inversely proportional to the
-distance between them, $d_{ij}$, and the strength of this isolation-by-distance
+distance between them, $d_{ij}$, and the strength of this IBD
 relationship, $\alpha$, which is treated as an intrinsic value of a species
-dispersal capacity.
-
-The form of the IBD relationship long called the dispersal kernel
-[@Grilli2015MetPer; @Hanski1994PraMod], we consider an
-exponential with decay-strength $\alpha$ and a cutoff value $\epsilon$,
+dispersal capacity. The form of the IBD relationship (historically called the dispersal kernel)
+we consider an
+exponential with decay-strength $\alpha$ and a cutoff value $\epsilon$ [@Grilli2015MetPer; @Hanski1994PraMod].
 
 $$f(d_{ij}, \alpha, \epsilon) =  \begin{cases} e^{-\alpha d_{ij}}
 \quad\quad\quad &\text{if}\quad e^{-\alpha d_{ij}} > \epsilon \ \ \text{and } i
@@ -124,42 +135,41 @@ forms of stochasticity [@Melbourne2008ExtRis].
 
 ## Dispersal Models
 
+### Stochastic Dispersal
+
+To simulate stochastic dispersal, the number of migrants leaving a given location is
+stochasticly drawn each timestep  as  $m_{i} \sim
+\text{Binomial}(N_i, m)$ for each location $i$. For every migrating individual we randomly draw
+where that individual goes from the distribution of potential destinations
+$\Phi^{(i)}$.
+
 ### Diffusion
 
-To model dispersal using diffusion, we incorporate the local Ricker Model into a
-reaction-diffusion model. If the probability that an individual migrates before
+To simulate diffusion dispersal, we incorporate the local Ricker Model into a
+reaction-diffusion model. If the probability that an individual disperses before
 reproducing is $m$, then we can define a diffusion matrix $D$ as
 
 $$D_{ij} = \begin{cases} \Phi_{ij}m \quad\quad\quad &\ i \neq j \\ 1-m  & i=j \end{cases}$$
 
-where $D_{ij}$ is now the expected value of the unit biomass that is born in $i$
-that reproduces in $j$. The dispersal dynamics of the diffusion model are
+where $D_{ij}$ is now the expected value an individual born in $i$ reproduces in $j$. The dispersal dynamics of the diffusion model are
 described by the mapping
 
 $$N_i(t+1) = \sum_j D_{ji} N_j(t)$$
-
 
 which can be combined into the local Ricker model from above as
 reaction-diffusion model by computing diffusion before each round of local
 dynamics.
 
-
 $$N_i(t+1) \sim \text{Poisson}\bigg( \lambda R e^{-\chi \big(\sum_j D_{ji}
 N_j(t)\big)} \cdot \sum_j D_{ji} N_j(t) \bigg)$$
 
 
-### Stochastic Dispersal
-
-To model stochastic dispersal, for each location $i$, the number of migrants
-leaving that location is drawn $m_{i} \sim \text{Binomial}(N_i, m)$ and for
-every migrating individual $1, \dots, m_i$ we randomly draw where that
-individual goes from the distribution $\Phi^{(i)}$.
 
 ## Measuring Synchrony
 
 In ecology and other fields, the crosscorrelation function, \(CC\), has long
 been used as a measure of the synchrony between two time-series. Here, with a metapopulation, we consider the mean
-crosscorrelation across all pairs of populations, which we call the
+crosscorrelation in abundances between all pairs of populations, which we call
 Pairwise-Crosscorrelation ($\text{PCC}$) and compute as
 
 $$\text{PCC}=\frac{1}{(N_p-1)^2}\sum_{i \neq j} CC(\vec{N_i},\vec{N_j})$$
@@ -168,28 +178,28 @@ where $\vec{N_i}$ is the time-series of abundances at population $i$.
 
 # Results
 
-We begin by considering how the level of synchrony, measured by $PCC$ changes as
-a function of the intrinsic dispersal probability $m$. In figure @fig:migration_gradient,
-we see how $PCC$ changes in response to $m$ at varying levels of both landscape connectivity $\alpha$
-and intrinsic growth rate $\lambda$. We see that under some combinations of $\alpha$, $\lambda$, and $m$
-both stochastic dispersal and diffusion produce similar levels of synchrony, however at some parameterizations diffusion artificially creates more synchronous dynamics where  stochastic dispersal does not generate synchrony.
+We first consider how synchrony, measured by $\text{PCC}$,
+changes as a function of the intrinsic dispersal probability $m$. In figure
+@fig:migration_gradient, we see how $\text{PCC}$ changes in response to $m$ at
+varying levels of both landscape connectivity $\alpha$ and intrinsic growth rate
+$\lambda$. We see that under some combinations of $\alpha$, $\lambda$, and $m$
+both stochastic dispersal (green) and diffusion (orange) produce similar levels
+of synchrony, however at some parameter values diffusion artificially creates
+more synchronous dynamics than stochastic dispersal.
 
 ![TODO Caption](./figures/migration_gradient_panels.png){#fig:migration_gradient}
 
 At low $\lambda$, the diffusion model produces increasingly synchronized
 population dynamics as migration increases; however, the stochastic dispersal
-model produces effectively no synchrony regardless of migration rate. Yet, as
+model produces effectively no synchrony regardless of migration rate. As
 $\lambda$ increases, we see two phenomena: 1) the distribution of $\text{PCC}$
 for both diffusion and stochastic model begin to move closer to one another, and
 2) the shift from non-synchronized to synchronized dynamics becomes more
 "critical", meaning it rapidly jumps to near $\text{PCC}=1.0$ as $m$ increases.
 As we increase $\lambda$, the gap between the diffusion and stochastic PCC
-distributions shrinks.  As we increase $\alpha$ to create more modular habitat
-networks, we see two phenomena depending on the value of $\lambda$. At low
-$\lambda$, the diffusion model produces lower synchrony and the stochastic
-dispersal model continues to produce asynchronous dynamics. However, as
-$\lambda$ increases, we see the difference in PCC between diffusion and
-stochastic dispersal models shrink, as before, but the amount of variance in
+distributions shrinks.  As $\alpha$, the modularity of the habitat
+networks, increases, we see the difference in PCC between diffusion and
+stochastic dispersal models shrink, but the amount of variance in
 this estimate increases and we increase the modularity of the habitat network
 ($\alpha$). In this case, the spatial configuration of habitat patches, and how
 the dispersal structure of a randomly generated habitat network changes with
