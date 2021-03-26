@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>When can we approximate dispersal with diffusion in ecology?</title>
+    <script src="https://hypothes.is/embed.js" async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+        :root {
+            --citation: #1976D2;
+            --structure: hsl(210, 61%, 43%);
+
+            --light: #474747;
+            --pale: #a5a5a5;
+            --grey: #e0e0e0;
+            --nav: #fdfdfd;
+
+            --width: 820px;
+            --inner-space: 1.2em;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            margin: 0 0;
+            padding: 0 0;
+        }
+
+        article > p {
+            line-height: 135%;
+        }
+        article > h1 {
+            padding-top: 3em;
+        }
+        a {
+            text-decoration: none;
+            color: #000;
+            border-bottom: 1px solid var(--structure);
+        }
+        a:hover {
+            font-weight: 500;
+        }
+        .citation {
+            color: var(--citation);
+        }
+        .container {
+            margin: 0em auto;
+            max-width: var(--width);
+            padding: var(--inner-space);
+        }
+        header > .container {
+            margin-top: 4em;
+        }
+        code, pre {
+            font-family: "Roboto Mono", monospace;
+        }
+        pre {
+            white-space: pre-wrap;
+        }
+        h1, h2, h3 {
+            color: var(--structure);
+            font-family: "Roboto Condensed", sans-serif;
+            font-weight: 400;
+        }
+        header {
+            font-family: "Roboto Condensed", sans-serif;
+            z-index: 5;
+            color: black;
+            margin-top: 4rem;
+        }
+        .header--title {
+            font-weight: 400;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .header--authors > span {
+            color: var(--light);
+            font-weight: 400;
+        }
+        main {
+            padding-top: 8em !important;
+            padding-bottom: 8em !important;
+        }
+        footer {
+            background-color: var(--grey);
+            font-weight: 300;
+        }
+        .abstract {
+            color: var(--light);
+            margin-bottom: 5em;
+        }
+        figure {
+            max-width: 100%;
+            border: 1px solid var(--pale);
+            border-radius: 2px;
+            margin: 1em 0.5em;
+        }
+        figure > img {
+            max-width: 100%;
+            display: block;
+            margin: 0em auto;
+        }
+        figure > figcaption {
+            padding: var(--inner-space);
+        }
+        table {
+            width: 100%;
+            min-width: 100%;
+            border-collapse: collapse;
+        }
+        table > caption {
+            padding: var(--inner-space);
+        }
+        figcaption, caption {
+            color: var(--light);
+            font-weight: 300;
+        }
+        thead {
+            color: var(--structure);
+        }
+        td, th {
+            padding: 3px;
+        }
+        tr {
+            border-top: 1px solid var(--structure);
+            border-bottom: 1px solid var(--structure);
+        }
+        tbody > tr:nth-child(even) {background: var(--grey)};
+        tbody {
+            border-bottom: 1px solid var(--structure);
+        }
+        #refs {
+            font-size: 90%;
+            column-count: 2;
+        }
+        #refs > .csl-entry {
+            padding-bottom: 0.2em;
+            padding-top: 0.2em;
+        }
+        .hanging-indent > .csl-entry {
+            padding-left: 15px ;
+            text-indent: -15px ;
+        }    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css"
+    integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"
+    integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O"
+    crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF"
+    crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false }
+                ]
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header--title">When can we approximate dispersal with diffusion in ecology?</div>
+            <div class="header--authors">
+                                <span class="header--author">
+                                        <a href="https://orcid.org/0000-0002-6506-6487" target="_blank">
+                        M.D. Catchen
+                    </a>
+                                                                <sup class="affilcode">1</sup>
+                                            <sup class="affilcode">2</sup>
+                                            <sup class="affilcode">3</sup>
+                                    </span>
+                                <span class="header--author">
+                                        <a href="https://orcid.org/0000-0002-6238-1174" target="_blank">
+                        Samuel M. Flaxman
+                    </a>
+                                                                <sup class="affilcode">3</sup>
+                                    </span>
+                            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="abstract">
+            <b>Abstract:</b> A paper.<br />
+            <div class="artifacts">
+                <a href="draft.pdf" title="Draft PDF" target="_blank">draft</a>
+                <a href="preprint.pdf" title="Preprint PDF" target="_blank">preprint</a>
+            </div>
+        </section>
+        
+        <article>
+            <h1 id="introduction">Introduction</h1>
+            <p>Human activity is changing the face of Earth, leaving landscapes that are fragmented and patchy.</p>
+            <p>It us well understood that landscape structure influences ecosystem processes <span class="citation" data-cites="cite">(<strong>cite?</strong>)</span>. Understanding how landscape structure affects ecological processes remains a fundamental goal of ecological research.</p>
+            <p>Landscape connectivity can mitigate the negative effects of habitat loss on ecosystem functioning, through corridors <span class="citation" data-cites="Resasco2019MetDec">(Resasco 2019)</span>.</p>
+            <p>As a result understanding how habitat structure effects the movement and dispersal of organisms, and how this scales up to explain the abundance and distribution of species across space, is a primary aim of landscape ecology. Models in landscape ecology—analytic, computational, and statistical— have long used diffusion to approximate model how organisms move or disperse between habitat patches <span class="citation" data-cites="Okubo2001DifEco Hastings1978GloSta">(<strong>Okubo2001DifEco?</strong>; Hastings 1978)</span>.</p>
+            <p>What does it mean that model uses diffusion? The way in which organisms move from one habitat patch to another, via active or passive dispersal, is inherently stochastic. Diffusion approximates this stochastic process by assuming the that stochastic process of movement of organisms between two locations is equal to its expected value at every time point—ignoring any temporal variation in dispersal. However, here we show that in some cases this assumption creates artificially synchronized dynamics across space.</p>
+            <p>Why is it important we understand when dispersal is a valid approximation of dispersal? In order to design landscapes that mitigate biodiversity loss and its effects <span class="citation" data-cites="Albert2017AppNet">(Albert et al. 2017)</span>, we need models to understand how landscape structure affects ecological processes. Understanding when dispersal is well-approximated by diffusion, and when it isn’t, is important because diffusion models are much less computationally expensive.</p>
+            <p>We do this by using a simulation model with two parts: 1) a spatial graph model of both stochastic dispersal and diffusion, and 2) a Ricker model of local population dynamics. We then show that there are two regimes: one under which diffusion creates highly synchronized dynamics where stochastic dispersal doesn’t, and one under which diffusion and stochastic dispersal produce similar distributions of synchrony. We show that the boundaries between these regimes is caused by both the modularity of the dispersal network and demographic parameters. We show that what distinguishes these regimes is whether the primary source of variation in population dynamics is either dispersal or demography.</p>
+            <figure>
+            <img src="./figures/synchrony_example.png" id="fig:example" alt="Figure 1: TODO Caption" /><figcaption aria-hidden="true">Figure 1: TODO Caption</figcaption>
+            </figure>
+            <h1 id="methods">Methods</h1>
+            <p>Here, we present a model of metapopulation dynamics on spatial graphs. This model contains three parts: a model of landscape connectivity, a model of local population dynamics, and a model of dispersal. We use this model to simulate time-series of metapopulation abundances using both diffusion and stochastic models of dispersal, and then measure the synchrony of population dynamics between populations. By comparing the synchrony created by stochastic dispersal and diffusion models, we show there are two distinct regimes: a regime where diffusion well approximates stochastic dispersal, and a regime where it does not.</p>
+            <h2 id="landscape-connectivity-model">Landscape connectivity model</h2>
+            <p>Spatial graphs have long been used to model a system of habitat patches (nodes) connected by dispersal (edges, which combined form a landscape <span class="citation" data-cites="Dale2010GraSpa Minor2008GraFra Urban2001LanCon">(Dale and Fortin 2010; Minor and Urban 2008; Urban and Keitt 2001)</span>.</p>
+            <p>// have to define connectivity</p>
+            <p>To describe how the edges of this spatial graph describe dispersal,</p>
+            <p>we model landscape connectivity as a combination of two different factors: the probability than any individual migrates during its lifetime, <span class="math inline"><em>m</em></span>, and the conditional distribution over spatial nodes of where an individual goes (<span class="math inline"><em>j</em> ∈ <em>L</em></span>), given both that it migrates <span class="math inline"><em>m</em></span> and where it started (<span class="math inline"><em>i</em> ∈ <em>L</em></span>), which we call the dispersal potential and denote</p>
+            <p><span class="math display"><em>Φ</em><sub><em>i</em><em>j</em></sub> = <em>P</em>(<em>i</em> → <em>j</em>|<em>m</em>)</span></p>
+            <p>The dispersal potential can be modeled several ways. In empirical systems, the relative cost of movement from one point to another is often estimated with resistance surfaces [spear_use_2010]. Here we model the dispersal potential using isolation-by-distance (IBD), which assumes the relative probability of dispersal from location <span class="math inline"><em>i</em></span> to location <span class="math inline"><em>j</em></span> is inversely proportional to the distance between them, <span class="math inline"><em>d</em><sub><em>i</em><em>j</em></sub></span>, and the strength of this IBD relationship, <span class="math inline"><em>α</em></span>, which is treated as an intrinsic value of a species dispersal capacity. The form of the IBD relationship (historically called the dispersal kernel) we consider an exponential with decay-strength <span class="math inline"><em>α</em></span> and a cutoff value <span class="math inline"><em>ϵ</em></span> <span class="citation" data-cites="Grilli2015MetPer Hanski1994PraMod">(Grilli, Barabás, and Allesina 2015; Hanski 1994)</span>.</p>
+            <p><span class="math display">$$f(d_{ij}, \alpha, \epsilon) =  \begin{cases} e^{-\alpha d_{ij}}
+            \quad\quad\quad &amp;\text{if}\quad e^{-\alpha d_{ij}} &gt; \epsilon \ \ \text{and } i
+            \neq j \\   0 &amp;\text{else} \end{cases}$$</span></p>
+            <p>Then, to construct a dispersal potential <span class="math inline"><em>Φ</em><sub><em>i</em><em>j</em></sub></span> with a kernel <span class="math inline"><em>f</em>(<em>d</em><sub><em>i</em><em>j</em></sub>, <em>α</em>)</span>, we normalize:</p>
+            <p><span class="math display">$$\Phi_{ij} = \frac{f(d_{ij}, \alpha, \epsilon)}{\sum_k f(d_{ik},\alpha,
+            \epsilon)}$$</span></p>
+            <p>Note that the sum of each row of <span class="math inline"><em>Φ</em></span>, forms a probability distribution, i.e. <span class="math inline">∑<sub><em>j</em></sub><em>Φ</em><sub><em>i</em><em>j</em></sub> = 1  ∀<em>i</em></span>, meaning the probability that an individual leaves its original population given that it migrates is 1. In some cases, for a given location <span class="math inline"><em>i</em></span>, the dispersal kernel <span class="math inline"><em>f</em>(<em>d</em><sub><em>i</em><em>j</em></sub>, <em>α</em>, <em>ϵ</em>)</span> could be <span class="math inline">0</span> for all <span class="math inline"><em>j</em></span>, in which case <span class="math inline"><em>Φ</em><sub><em>i</em><em>i</em></sub></span> is set to <span class="math inline">1</span> to enforce this condition. In all other cases, <span class="math inline"><em>Φ</em><sub><em>i</em><em>i</em></sub> = 0</span>. Also note that if <span class="math inline"><em>α</em> = 0</span>, the dispersal potential is a uniform distribution over other locations. In Figure , we can see the same set of points plotted spatial graphs plotted representing the same set of populations across differing values of isolation-by-distance strength, <span class="math inline"><em>α</em></span>.</p>
+            <h2 id="local-population-dynamics-model">Local population dynamics model</h2>
+            <p>We model local population dynamics using the Ricker Model. At each timestep, the abundance <span class="math inline"><em>N</em><sub><em>i</em></sub></span> at location <span class="math inline"><em>i</em></span> is drawn as</p>
+            <p><span class="math display"><em>N</em><sub><em>i</em></sub>(<em>t</em> + 1) ∼ Poisson(<em>N</em><sub><em>i</em></sub>(<em>t</em>)<em>λ</em><em>R</em><em>e</em><sup> − <em>χ</em><em>N</em><sub><em>i</em></sub>(<em>t</em>)</sup>)</span></p>
+            <p>where <span class="math inline"><em>χ</em></span> represents the strength of mortality of surviving until adulthood, <span class="math inline"><em>R</em></span> is the probability that an adult reproduces (<span class="math inline">0.9</span> for all results presented here), and where <span class="math inline"><em>λ</em></span> is the mean number of offspring for each individual that reproduces—yielding three total parameters: <span class="math inline"><em>θ</em> = {<em>λ</em>, <em>R</em>, <em>χ</em>}</span>. We consider the simplest variation on the model, which only includes demographic stochasticity, however it is straightforward to extend this to other forms of stochasticity <span class="citation" data-cites="Melbourne2008ExtRis">(<strong>Melbourne2008ExtRis?</strong>)</span>.</p>
+            <h2 id="dispersal-models">Dispersal Models</h2>
+            <h3 id="stochastic-dispersal">Stochastic Dispersal</h3>
+            <p>To simulate stochastic dispersal, the number of migrants leaving a given location is stochasticly drawn each timestep as <span class="math inline"><em>m</em><sub><em>i</em></sub> ∼ Binomial(<em>N</em><sub><em>i</em></sub>, <em>m</em>)</span> for each location <span class="math inline"><em>i</em></span>. For every migrating individual we randomly draw where that individual goes from the distribution of potential destinations <span class="math inline"><em>Φ</em><sup>(<em>i</em>)</sup></span>.</p>
+            <h3 id="diffusion">Diffusion</h3>
+            <p>To simulate diffusion dispersal, we incorporate the local Ricker Model into a reaction-diffusion model. If the probability that an individual disperses before reproducing is <span class="math inline"><em>m</em></span>, then we can define a diffusion matrix <span class="math inline"><em>D</em></span> as</p>
+            <p><span class="math display">$$D_{ij} = \begin{cases} \Phi_{ij}m \quad\quad\quad &amp;\ i \neq j \\ 1-m  &amp; i=j \end{cases}$$</span></p>
+            <p>where <span class="math inline"><em>D</em><sub><em>i</em><em>j</em></sub></span> is now the expected value an individual born in <span class="math inline"><em>i</em></span> reproduces in <span class="math inline"><em>j</em></span>. The dispersal dynamics of the diffusion model are described by the mapping</p>
+            <p><span class="math display"><em>N</em><sub><em>i</em></sub>(<em>t</em> + 1) = ∑<sub><em>j</em></sub><em>D</em><sub><em>j</em><em>i</em></sub><em>N</em><sub><em>j</em></sub>(<em>t</em>)</span></p>
+            <p>which can be combined into the local Ricker model from above as reaction-diffusion model by computing diffusion before each round of local dynamics.</p>
+            <p><span class="math display"><em>N</em><sub><em>i</em></sub>(<em>t</em> + 1) ∼ Poisson(<em>λ</em><em>R</em><em>e</em><sup> − <em>χ</em>(∑<sub><em>j</em></sub><em>D</em><sub><em>j</em><em>i</em></sub><em>N</em><sub><em>j</em></sub>(<em>t</em>))</sup> ⋅ ∑<sub><em>j</em></sub><em>D</em><sub><em>j</em><em>i</em></sub><em>N</em><sub><em>j</em></sub>(<em>t</em>))</span></p>
+            <h2 id="measuring-synchrony">Measuring Synchrony</h2>
+            <p>In ecology and other fields, the crosscorrelation function, (CC), has long been used as a measure of the synchrony between two time-series. Here, with a metapopulation, we consider the mean crosscorrelation in abundances between all pairs of populations, which we call Pairwise-Crosscorrelation (<span class="math inline">PCC</span>) and compute as</p>
+            <p><span class="math display">$$\text{PCC}=\frac{1}{(N_p-1)^2}\sum_{i \neq j} CC(\vec{N_i},\vec{N_j})$$</span></p>
+            <p>where <span class="math inline">$\vec{N_i}$</span> is the time-series of abundances at population <span class="math inline"><em>i</em></span>.</p>
+            <h1 id="results">Results</h1>
+            <p>We first consider how synchrony, measured by <span class="math inline">PCC</span>, changes as a function of the intrinsic dispersal probability <span class="math inline"><em>m</em></span>. In figure fig. 2, we see how <span class="math inline">PCC</span> changes in response to <span class="math inline"><em>m</em></span> at varying levels of both landscape connectivity <span class="math inline"><em>α</em></span> and intrinsic growth rate <span class="math inline"><em>λ</em></span>. We see that under some combinations of <span class="math inline"><em>α</em></span>, <span class="math inline"><em>λ</em></span>, and <span class="math inline"><em>m</em></span> both stochastic dispersal (green) and diffusion (orange) produce similar levels of synchrony, however at some parameter values diffusion artificially creates more synchronous dynamics than stochastic dispersal.</p>
+            <figure>
+            <img src="./figures/migration_gradient_panels.png" id="fig:migration_gradient" alt="Figure 2: TODO Caption" /><figcaption aria-hidden="true">Figure 2: TODO Caption</figcaption>
+            </figure>
+            <p>At low <span class="math inline"><em>λ</em></span>, the diffusion model produces increasingly synchronized population dynamics as migration increases; however, the stochastic dispersal model produces effectively no synchrony regardless of migration rate. As <span class="math inline"><em>λ</em></span> increases, we see two phenomena: 1) the distribution of <span class="math inline">PCC</span> for both diffusion and stochastic model begin to move closer to one another, and 2) the shift from non-synchronized to synchronized dynamics becomes more “critical,” meaning it rapidly jumps to near <span class="math inline">PCC = 1.0</span> as <span class="math inline"><em>m</em></span> increases. As we increase <span class="math inline"><em>λ</em></span>, the gap between the diffusion and stochastic PCC distributions shrinks. As <span class="math inline"><em>α</em></span>, the modularity of the habitat networks, increases, we see the difference in PCC between diffusion and stochastic dispersal models shrink, but the amount of variance in this estimate increases and we increase the modularity of the habitat network (<span class="math inline"><em>α</em></span>). In this case, the spatial configuration of habitat patches, and how the dispersal structure of a randomly generated habitat network changes with <span class="math inline"><em>α</em></span>, is driving greater variation in the amount of synchrony observed at a given set of parameter values.</p>
+            <p>To better understand this, we consider “mapping” this difference in the parameter space defined by varying levels of landscape connectivity <span class="math inline"><em>α</em></span> and intrinsic growth rate <span class="math inline"><em>λ</em></span> at “snapshots” of various value of intrinsic dispersal rate <span class="math inline"><em>m</em></span> (fig. 3). Dispersal rate is often treated as a property intrinsic to a species.</p>
+            <figure>
+            <img src="./figures/connectivity_demography_lattice.png" id="fig:lattice" alt="Figure 3: TODO Caption" /><figcaption aria-hidden="true">Figure 3: TODO Caption</figcaption>
+            </figure>
+            <p>Why is it that we see a response to <span class="math inline"><em>λ</em></span>? Consider what we know about the Ricker model,By comparing the synchrony created by stochastic dispersal and diffusion models, we show there are two distinct regimes: a regime where diffusion well approximates stochastic dispersal, and a regime where it does not.</p>
+            <p>higher <span class="math inline"><em>λ</em></span> without changing other parameters means the mean population size increases. As the mean population size increases, the size of the sampling distribution of dispersers at each timestep increases, and we expect this distribution to converge to <span class="math inline"><em>Φ</em></span> as the number of migrants increases toward infinity.</p>
+            <p>We conclude by emphasizing the difference in simulation time between these models, especially as the number of spatial locations increases. This is compounded by stochastic dispersal’s runtime is sensitive to the intrinsic migration probability <span class="math inline"><em>m</em></span>. At higher value of <span class="math inline"><em>m</em></span>, more dispersal events occur,</p>
+            <figure>
+            <img src="./figures/runtime.png" id="fig:runtime" alt="Figure 4: TODO Caption" /><figcaption aria-hidden="true">Figure 4: TODO Caption</figcaption>
+            </figure>
+            <h1 id="discussion">Discussion</h1>
+            <p>When developing models to understand and predict how landscape structure effects ecological processes, diffusion can be a convenient abstraction to speed up computation in some cases.</p>
+            <p>Here we show that diffusion can artificially synchronize dynamics across space.</p>
+            <p>Spatial synchrony of population dynamics is generally of interest. Dispersal induced synchrony can increase population stability, up until a certain threshold where the dynamics become so highly synchronized that they increase extinction risk <span class="citation" data-cites="Abbott2011DisPar">(Abbott 2011)</span>.</p>
+            <p>The point goes beyond synchrony. The major point we intend to make here is that if one is developing an ecological model that involves organisms moving across space, it is imperative to test whether stochastic and diffusion dispersal produce similar results. Diffusion can often be a valuable abstraction that make computation faster. “Understanding the scope and proprer domain of each abstraction” <span class="citation" data-cites="Levins1987DiaBio">(Levins and Lewontin 1987)</span> One way to view this is diffusion ignores temporal variation in dispersal.</p>
+            <p>Another important consideration for this work is what is meant by a “location” within our model. Although we frame this in terms of habitat patches, what an individual point in a spatial network represents is a convenient abstract to represent the spatial dimension of ecological processes. We argue the dispersal potential, by using probabilistic framework to represent dispersal, is a way to describe landscape structure at any scale.</p>
+            <ul>
+            <li>Spatial graph models as tool for modeling ecological processes across space and as generative models.</li>
+            <li>Emergent properties and the role of stochasticity</li>
+            </ul>
+            <h3 id="acknowledgments">Acknowledgments</h3>
+            <h1 class="unnumbered" id="references">References</h1>
+            <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+            <div id="ref-Abbott2011DisPar" class="csl-entry" role="doc-biblioentry">
+            Abbott, Karen C. 2011. <span>“A Dispersal-Induced Paradox: Synchrony and Stability in Stochastic Metapopulations.”</span> <em>Ecology Letters</em> 14 (11): 1158–69. <a href="https://doi.org/10.1111/j.1461-0248.2011.01670.x">https://doi.org/10.1111/j.1461-0248.2011.01670.x</a>.
+            </div>
+            <div id="ref-Albert2017AppNet" class="csl-entry" role="doc-biblioentry">
+            Albert, Cécile H., Bronwyn Rayfield, Maria Dumitru, and Andrew Gonzalez. 2017. <span>“Applying Network Theory to Prioritize Multispecies Habitat Networks That Are Robust to Climate and Land-Use Change.”</span> <em>Conservation Biology</em> 31 (6): 1383–96. <a href="https://doi.org/10.1111/cobi.12943">https://doi.org/10.1111/cobi.12943</a>.
+            </div>
+            <div id="ref-Dale2010GraSpa" class="csl-entry" role="doc-biblioentry">
+            Dale, M. R. T., and M.-J. Fortin. 2010. <span>“From Graphs to Spatial Graphs.”</span> <em>Annual Review of Ecology, Evolution, and Systematics</em> 41 (1): 21–38. <a href="https://doi.org/10.1146/annurev-ecolsys-102209-144718">https://doi.org/10.1146/annurev-ecolsys-102209-144718</a>.
+            </div>
+            <div id="ref-Grilli2015MetPer" class="csl-entry" role="doc-biblioentry">
+            Grilli, Jacopo, György Barabás, and Stefano Allesina. 2015. <span>“Metapopulation Persistence in Random Fragmented Landscapes.”</span> Edited by Matthew (Matt) Ferrari. <em>PLOS Computational Biology</em> 11 (5): e1004251. <a href="https://doi.org/10.1371/journal.pcbi.1004251">https://doi.org/10.1371/journal.pcbi.1004251</a>.
+            </div>
+            <div id="ref-Hanski1994PraMod" class="csl-entry" role="doc-biblioentry">
+            Hanski, Ilkka. 1994. <span>“A Practical Model of Metapopulation Dynamics.”</span> <em>The Journal of Animal Ecology</em> 63 (1): 151. <a href="https://doi.org/10.2307/5591">https://doi.org/10.2307/5591</a>.
+            </div>
+            <div id="ref-Hastings1978GloSta" class="csl-entry" role="doc-biblioentry">
+            Hastings, Alan. 1978. <span>“Global Stability in Lotka-Volterra Systems with Diffusion.”</span> <em>Journal of Mathematical Biology</em> 6 (2): 163–68. <a href="https://doi.org/10.1007/BF02450786">https://doi.org/10.1007/BF02450786</a>.
+            </div>
+            <div id="ref-Levins1987DiaBio" class="csl-entry" role="doc-biblioentry">
+            Levins, Richard, and Richard Charles Lewontin. 1987. <em>The Dialectical Biologist</em>. Cambridge, Mass.: Harvard University Press.
+            </div>
+            <div id="ref-Minor2008GraFra" class="csl-entry" role="doc-biblioentry">
+            Minor, Emily S., and Dean L. Urban. 2008. <span>“A Graph-Theory Framework for Evaluating Landscape Connectivity and Conservation Planning.”</span> <em>Conservation Biology</em> 22 (2): 297–307. <a href="https://doi.org/10.1111/j.1523-1739.2007.00871.x">https://doi.org/10.1111/j.1523-1739.2007.00871.x</a>.
+            </div>
+            <div id="ref-Resasco2019MetDec" class="csl-entry" role="doc-biblioentry">
+            Resasco, Julian. 2019. <span>“Meta-Analysis on a Decade of Testing Corridor Efficacy: What New Have We Learned?”</span> <em>Current Landscape Ecology Reports</em> 4 (3): 61–69. <a href="https://doi.org/10.1007/s40823-019-00041-9">https://doi.org/10.1007/s40823-019-00041-9</a>.
+            </div>
+            <div id="ref-Urban2001LanCon" class="csl-entry" role="doc-biblioentry">
+            Urban, Dean, and Timothy Keitt. 2001. <span>“Landscape Connectivity: A Graph-Theoretic Perspective.”</span> <em>Ecology</em> 82 (5): 1205–18. <a href="https://doi.org/10.1890/0012-9658(2001)082[1205:LCAGTP]2.0.CO;2">https://doi.org/10.1890/0012-9658(2001)082[1205:LCAGTP]2.0.CO;2</a>.
+            </div>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h2>Affiliations</h2> 
+            <sup>1</sup>&nbsp;McGill University; <sup>2</sup>&nbsp;Québec Centre for Biodiversity Sciences; <sup>3</sup>&nbsp;University of Colorado at Boulder
+            <br />
+            
+        </div>
+    </footer>
+    
+</body>
+</html>

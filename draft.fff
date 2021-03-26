@@ -1,0 +1,34 @@
+\begin{figure}
+\hypertarget{fig:example}{%
+\centering
+\includegraphics{./figures/synchrony_example.png}
+\caption{TODO Caption}\label{fig:example}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:migration_gradient}{%
+\centering
+\includegraphics{./figures/migration_gradient_panels.png}
+\caption{TODO Caption}\label{fig:migration_gradient}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:lattice}{%
+\centering
+\includegraphics{./figures/connectivity_demography_lattice.png}
+\caption{TODO Caption}\label{fig:lattice}
+}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\hypertarget{fig:runtime}{%
+\centering
+\includegraphics{./figures/runtime.png}
+\caption{TODO Caption}\label{fig:runtime}
+}
+\end{figure}
