@@ -1,34 +1,34 @@
 {
-  "title": "Diffusion creates artificial synchronization of population dynamics on spatial networks",
-  "license": "CC-BY",
-  "language": "en",
-  "creators": [
+  "title": "Building a better metaweb: predicting spatiotemporally explicit  plant-pollinator networks",
+  "authors": [
     {
       "affiliations": [
         "McGill University",
-        "Québec Centre for Biodiversity Sciences",
-        "University of Colorado at Boulder"
+        "Québec Centre for Biodiversity Sciences"
       ],
       "familyname": "Catchen",
-      "givennames": "M.D.",
+      "givennames": "Michael D.",
+      "status": ["corresponding"],
       "email": "michael.catchen@mail.mcgill.ca",
       "orcid": "0000-0002-6506-6487"
     },
     {
       "affiliations": [
-        "University of Colorado at Boulder"
+        "McGill University",
+        "Québec Centre for Biodiversity Sciences"
       ],
-      "familyname": "Flaxman",
-      "givennames": "Samuel M.",
-      "email": "samuel.flaxman@colorado.edu",
-      "orcid": "0000-0002-6238-1174"
+      "familyname": "Gonzalez",
+      "givennames": "Andrew",
+      "email": "andrew.gonzalez@mcgill.ca",
+      "orcid": "0000-0001-6075-8081"
     }
   ],
-  "description": "When can we approximate dispersal with diffusion in ecology?",
+  "abstract": "When can we approximate dispersal with diffusion in ecology?",
   "keywords": [
     "dispersal",
     "landscape ecology",
     "movement ecology",
     "simulation"
-  ]
+  ],
+  "citationstyle": "ecology-letters"
 }
