@@ -21,9 +21,18 @@
       "givennames": "Andrew",
       "email": "andrew.gonzalez@mcgill.ca",
       "orcid": "0000-0001-6075-8081"
+    },
+    {
+      "affiliations": [
+        "University of Colorado at Boulder"
+      ],
+      "familyname": "Flaxman",
+      "givennames": "Samuel M.",
+      "email": "samuel.flaxman@colorado.edu",
+      "orcid": "0000-0002-6238-1174"
     }
   ],
-  "abstract": "When can we approximate dispersal with diffusion in ecology?",
+  "abstract": "",
   "keywords": [
     "dispersal",
     "landscape ecology",
