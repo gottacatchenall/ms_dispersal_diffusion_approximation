@@ -1,5 +1,5 @@
 {
-  "title": "When can we approximate dispersal with diffusion in ecology?",
+  "title": "Diffusion creates artificial synchronization of population dynamics on spatial networks",
   "license": "CC-BY",
   "language": "en",
   "creators": [
@@ -24,7 +24,7 @@
       "orcid": "0000-0002-6238-1174"
     }
   ],
-  "description": "A paper.",
+  "description": "When can we approximate dispersal with diffusion in ecology?",
   "keywords": [
     "dispersal",
     "landscape ecology",

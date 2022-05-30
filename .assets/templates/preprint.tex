@@ -1,13 +1,12 @@
 %!TEX TS-program = xelatex
 \documentclass[10pt,oneside]{article}
+\usepackage[fontsize=9pt]{scrextend}
 
 ${ _common() }
 ${ _pandoc() }
 ${ _preprint() }
 
 \begin{document}
-\tikz [remember picture, overlay] %
-\node [shift={(-0.6in,1.1cm)},scale=0.2,opacity=0.4] at (current page.south east)[anchor=south east]{ };%
 \pagestyle{normal}
 \thispagestyle{firstpage}
 
@@ -18,11 +17,11 @@ ${ _preprint() }
 \medskip
 \begin{flushleft}
 {\small
-${ authors:_list_authors()[, ] }
+${ authors:_render_authors()[, ] }
 \vskip 1em
-${ institutions:_list_institutions()[; ] }\\
+${ institutions:_render_institutions()[; ] }\\
 ${ if(metadata.equalcontributions) }
-${ metadata.equalcontributions:_list_institutions()[; ] }\\
+${ metadata.equalcontributions:_render_institutions()[; ] }\\
 ${ endif }
 \vskip 1em
 \textbf{Correspondance to:}\\
@@ -43,9 +42,7 @@ ${ for(keywords) }${ it }\\${ endfor }}
 }
 $endif$
 
-${ if(description) }
-\textbf{Abstract}:\,${ description }
-${ endif }
+${ abstractdata:_render_abstract.tex() }
 
 \vskip 2em
 \makebox[0pt][l]{\colorRule[CCCCCC]{2.0\textwidth}{0.5pt}}

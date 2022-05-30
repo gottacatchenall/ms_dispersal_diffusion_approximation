@@ -6,16 +6,17 @@ ${ _pandoc() }
 ${ _draft() }
 
 \begin{document}
+\raggedright
 \thispagestyle{empty}
 {\Large\bfseries\sffamily ${ title }}
 \vskip 5em
 
-${ authors:_list_authors()[\quad ] }
+${ authors:_render_authors()[\quad ] }
 
-${ institutions:_list_institutions()[\quad ] }
+${ institutions:_render_institutions()[\quad ] }
 
 ${ if(metadata.equalcontributions) }
-${ metadata.equalcontributions:_list_institutions()[; ] }\\
+${ metadata.equalcontributions:_render_institutions()[; ] }\\
 ${ endif }
 
 \textbf{Correspondance to:}\\
@@ -31,9 +32,7 @@ Last revision: \emph{\today}
 \thispagestyle{empty}
 
 \vfill
-${ if(description) }
-\textbf{\sffamily Abstract: }${ description }
-${ endif }
+${ abstractdata:_render_abstract.tex() }
 \vfill
 
 \clearpage
