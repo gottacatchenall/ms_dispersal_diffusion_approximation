@@ -3,7 +3,7 @@ name: Compile the document
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 jobs:
@@ -38,6 +38,10 @@ jobs:
         run: python .assets/scripts/bibliography.py
       - name: Cleanup the affiliations
         run: python .assets/scripts/affiliations.py
+      - name: Get the citation style file
+        run: python .assets/scripts/citationstyle.py
+      - name: Format the abstract
+        run: python .assets/scripts/abstract.py
       - name: Prepare the output
         run: |
           mkdir -p dist
@@ -45,11 +49,11 @@ jobs:
           cp references.json dist/
           cp author_template.tsv dist/
       - name: Build the website
-        run: pandoc manuscript.md -o dist/index.html -F pandoc-crossref --citeproc --bibliography=references.json --metadata-file=metadata.json --metadata-file=affiliations.json --template=.assets/templates/index.html
+        run: pandoc README.md -o dist/index.html -F pandoc-crossref --citeproc --bibliography=references.json --csl .assets/citationstyle.csl --metadata-file=metadata.json --metadata-file=affiliations.json --metadata-file=abstract.json --template=.assets/templates/index.html
       - name: Build the tex files
         run: |
-          pandoc manuscript.md -s -o dist/draft.tex -F pandoc-crossref --citeproc --bibliography=references.json --metadata-file=metadata.json --metadata-file=affiliations.json --template=.assets/templates/draft.tex
-          pandoc manuscript.md -s -o dist/preprint.tex -F pandoc-crossref --citeproc --bibliography=references.json --metadata-file=metadata.json --metadata-file=affiliations.json --template=.assets/templates/preprint.tex
+          pandoc README.md -s -o dist/draft.tex -F pandoc-crossref --citeproc --bibliography=references.json --csl .assets/citationstyle.csl --metadata-file=metadata.json --metadata-file=affiliations.json --metadata-file=abstract.json --template=.assets/templates/draft.tex
+          pandoc README.md -s -o dist/preprint.tex -F pandoc-crossref --citeproc --bibliography=references.json --csl .assets/citationstyle.csl --metadata-file=metadata.json --metadata-file=affiliations.json --metadata-file=abstract.json --template=.assets/templates/preprint.tex
       - name: Save artifacts
         if: always()
         uses: actions/upload-artifact@master
@@ -93,7 +97,7 @@ jobs:
     name: Deploy to gh-pages
     needs: [generate, build]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
       - name: Download dist folder
@@ -101,9 +105,8 @@ jobs:
         with:
           name: "manuscript"
           path: dist
-      - name: "GitHub Pages deployment"
-        if: always()
-        uses: maxheld83/ghpages@v0.3.0
-        env:
-          BUILD_DIR: "dist/"
-          GH_PAT: ${{ secrets.ACCESS_TOKEN }}
+      - name: "Deploy!"
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
