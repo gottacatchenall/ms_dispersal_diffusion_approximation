@@ -6,7 +6,7 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{stix}
+\usepackage{stix2}
 \usepackage[scaled]{helvet}
 \usepackage[scaled]{inconsolata}
 
@@ -135,12 +135,17 @@ urlcolor=blue}
 \newcommand{\CSLBlock}[1]{#1\hfill\break}
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\maxof{\widthof{#1}}{\csllabelwidth}}{#1}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth}{#1}}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}\geometry{verbose,letterpaper,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=4.5cm}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}\geometry{verbose,letterpaper,tmargin=2.2cm,bmargin=2.2cm,lmargin=2.2cm,rmargin=2.2cm}
 
 \usepackage{lineno}
 \usepackage[nolists,noheads]{endfloat}
 
 \pagestyle{plain}
+
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
 
 \doublespacing
 
@@ -150,25 +155,26 @@ urlcolor=blue}
   \fancyfoot[R]{\footnotesize\sffamily\thepage\ of \pageref*{LastPage}}
 }
 \begin{document}
+\raggedright
 \thispagestyle{empty}
-{\Large\bfseries\sffamily When can we approximate dispersal with
-diffusion in ecology?}
+{\Large\bfseries\sffamily Building a better metaweb: predicting
+spatiotemporally explicit plant-pollinator networks}
 \vskip 5em
 
 %
-\href{https://orcid.org/0000-0002-6506-6487}{M.D.\,Catchen}%
+\href{https://orcid.org/0000-0002-6506-6487}{Michael D.\,Catchen}%
 %
-\,\textsuperscript{1,2,3}\quad %
-\href{https://orcid.org/0000-0002-6238-1174}{Samuel M.\,Flaxman}%
+\,\textsuperscript{1,2}\quad %
+\href{https://orcid.org/0000-0001-6075-8081}{Andrew\,Gonzalez}%
 %
-\,\textsuperscript{3}
+\,\textsuperscript{1,2}
 
 \textsuperscript{1}\,McGill University\quad \textsuperscript{2}\,Québec
-Centre for Biodiversity Sciences\quad \textsuperscript{3}\,University of
-Colorado at Boulder
+Centre for Biodiversity Sciences
 
 
 \textbf{Correspondance to:}\\
+Michael D. Catchen --- \texttt{michael.catchen@mail.mcgill.ca}\\
 
 \vfill
 This work is released by its authors under a CC-BY 4.0 license\hfill\ccby\\
@@ -178,7 +184,10 @@ Last revision: \emph{\today}
 \thispagestyle{empty}
 
 \vfill
-\textbf{\sffamily Abstract: }A paper.
+When can we approximate dispersal with diffusion in ecology?
+
+
+
 \vfill
 
 \clearpage
@@ -204,8 +213,8 @@ dispersal of organisms, and how this scales up to explain the abundance
 and distribution of species across space, is a primary aim of landscape
 ecology. Models in landscape ecology---analytic, computational, and
 statistical--- have long used diffusion to approximate model how
-organisms move or disperse between habitat patches
-(\textbf{Okubo2001DifEco?}; Hastings 1978).
+organisms move or disperse between habitat patches (Hastings 1978;
+\textbf{Okubo2001DifEco?}).
 
 What does it mean that model uses diffusion? The way in which organisms
 move from one habitat patch to another, via active or passive dispersal,
@@ -218,11 +227,11 @@ synchronized dynamics across space.
 
 Why is it important we understand when dispersal is a valid
 approximation of dispersal? In order to design landscapes that mitigate
-biodiversity loss and its effects (Albert et al. 2017), we need models
-to understand how landscape structure affects ecological processes.
-Understanding when dispersal is well-approximated by diffusion, and when
-it isn't, is important because diffusion models are much less
-computationally expensive.
+biodiversity loss and its effects (Albert \emph{et al.} 2017), we need
+models to understand how landscape structure affects ecological
+processes. Understanding when dispersal is well-approximated by
+diffusion, and when it isn't, is important because diffusion models are
+much less computationally expensive.
 
 We do this by using a simulation model with two parts: 1) a spatial
 graph model of both stochastic dispersal and diffusion, and 2) a Ricker
@@ -262,7 +271,7 @@ model}\label{landscape-connectivity-model}}
 
 Spatial graphs have long been used to model a system of habitat patches
 (nodes) connected by dispersal (edges, which combined form a landscape
-(Dale and Fortin 2010; Minor and Urban 2008; Urban and Keitt 2001).
+(Urban \& Keitt 2001; Minor \& Urban 2008; Dale \& Fortin 2010).
 
 // have to define connectivity
 
@@ -287,20 +296,20 @@ location \(j\) is inversely proportional to the distance between them,
 is treated as an intrinsic value of a species dispersal capacity. The
 form of the IBD relationship (historically called the dispersal kernel)
 we consider an exponential with decay-strength \(\alpha\) and a cutoff
-value \(\epsilon\) (Grilli, Barabás, and Allesina 2015; Hanski 1994).
+value \(\epsilon\) (Hanski 1994; Grilli \emph{et al.} 2015).
 
 \[f(d_{ij}, \alpha, \epsilon) =  \begin{cases} e^{-\alpha d_{ij}}
-\quad\quad\quad &\text{if}\quad e^{-\alpha d_{ij}} > \epsilon \ \ \text{and } i
-\neq j \\   0 &\text{else} \end{cases}\]
+\quad\quad\quad &\text{if}\quad e^{-\alpha d_{ij}} > \epsilon \ \
+\text{and } i \neq j \\   0 &\text{else} \end{cases}\]
 
 Then, to construct a dispersal potential \(\Phi_{ij}\) with a kernel
 \(f(d_{ij}, \alpha)\), we normalize:
 
-\[\Phi_{ij} = \frac{f(d_{ij}, \alpha, \epsilon)}{\sum_k f(d_{ik},\alpha,
-\epsilon)}\]
+\[\Phi_{ij} = \frac{f(d_{ij}, \alpha, \epsilon)}{\sum_k
+f(d_{ik},\alpha, \epsilon)}\]
 
 Note that the sum of each row of \(\Phi\), forms a probability
-distribution, i.e. \(\sum_j \Phi_{ij} = 1 \ \ \forall i\), meaning the
+distribution, i.e.~\(\sum_j \Phi_{ij} = 1 \ \ \forall i\), meaning the
 probability that an individual leaves its original population given that
 it migrates is 1. In some cases, for a given location \(i\), the
 dispersal kernel \(f(d_{ij}, \alpha, \epsilon)\) could be \(0\) for all
@@ -319,7 +328,8 @@ model}\label{local-population-dynamics-model}}
 We model local population dynamics using the Ricker Model. At each
 timestep, the abundance \(N_i\) at location \(i\) is drawn as
 
-\[N_i(t+1) \sim \text{Poisson}\bigg(N_i(t) \lambda R e^{- \chi N_i(t)}\bigg)\]
+\[N_i(t+1) \sim \text{Poisson}\bigg(N_i(t) \lambda R e^{- \chi
+N_i(t)}\bigg)\]
 
 where \(\chi\) represents the strength of mortality of surviving until
 adulthood, \(R\) is the probability that an adult reproduces (\(0.9\)
@@ -350,7 +360,8 @@ into a reaction-diffusion model. If the probability that an individual
 disperses before reproducing is \(m\), then we can define a diffusion
 matrix \(D\) as
 
-\[D_{ij} = \begin{cases} \Phi_{ij}m \quad\quad\quad &\ i \neq j \\ 1-m  & i=j \end{cases}\]
+\[D_{ij} = \begin{cases} \Phi_{ij}m \quad\quad\quad &\ i \neq j \\ 1-m
+& i=j \end{cases}\]
 
 where \(D_{ij}\) is now the expected value an individual born in \(i\)
 reproduces in \(j\). The dispersal dynamics of the diffusion model are
@@ -362,8 +373,8 @@ which can be combined into the local Ricker model from above as
 reaction-diffusion model by computing diffusion before each round of
 local dynamics.
 
-\[N_i(t+1) \sim \text{Poisson}\bigg( \lambda R e^{-\chi \big(\sum_j D_{ji}
-N_j(t)\big)} \cdot \sum_j D_{ji} N_j(t) \bigg)\]
+\[N_i(t+1) \sim \text{Poisson}\bigg( \lambda R e^{-\chi \big(\sum_j
+D_{ji} N_j(t)\big)} \cdot \sum_j D_{ji} N_j(t) \bigg)\]
 
 \hypertarget{measuring-synchrony}{%
 \subsection{Measuring Synchrony}\label{measuring-synchrony}}
@@ -479,8 +490,8 @@ is that if one is developing an ecological model that involves organisms
 moving across space, it is imperative to test whether stochastic and
 diffusion dispersal produce similar results. Diffusion can often be a
 valuable abstraction that make computation faster. ``Understanding the
-scope and proprer domain of each abstraction'' (Levins and Lewontin
-1987) One way to view this is diffusion ignores temporal variation in
+scope and proprer domain of each abstraction'' (Levins \& Lewontin 1987)
+One way to view this is diffusion ignores temporal variation in
 dispersal.
 
 Another important consideration for this work is what is meant by a
@@ -510,59 +521,50 @@ landscape structure at any scale.
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
 \leavevmode\hypertarget{ref-Abbott2011DisPar}{}%
-Abbott, Karen C. 2011. {``A Dispersal-Induced Paradox: Synchrony and
-Stability in Stochastic Metapopulations.''} \emph{Ecology Letters} 14
-(11): 1158--69. \url{https://doi.org/10.1111/j.1461-0248.2011.01670.x}.
+Abbott, K.C. (2011). A dispersal-induced paradox: Synchrony and
+stability in stochastic metapopulations. \emph{Ecology Letters}, 14,
+1158--1169.
 
 \leavevmode\hypertarget{ref-Albert2017AppNet}{}%
-Albert, Cécile H., Bronwyn Rayfield, Maria Dumitru, and Andrew Gonzalez.
-2017. {``Applying Network Theory to Prioritize Multispecies Habitat
-Networks That Are Robust to Climate and Land-Use Change.''}
-\emph{Conservation Biology} 31 (6): 1383--96.
-\url{https://doi.org/10.1111/cobi.12943}.
+Albert, C.H., Rayfield, B., Dumitru, M. \& Gonzalez, A. (2017). Applying
+network theory to prioritize multispecies habitat networks that are
+robust to climate and land-use change. \emph{Conservation Biology}, 31,
+1383--1396.
 
 \leavevmode\hypertarget{ref-Dale2010GraSpa}{}%
-Dale, M. R. T., and M.-J. Fortin. 2010. {``From Graphs to Spatial
-Graphs.''} \emph{Annual Review of Ecology, Evolution, and Systematics}
-41 (1): 21--38.
-\url{https://doi.org/10.1146/annurev-ecolsys-102209-144718}.
+Dale, M.R.T. \& Fortin, M.-J. (2010). From Graphs to Spatial Graphs.
+\emph{Annual Review of Ecology, Evolution, and Systematics}, 41, 21--38.
 
 \leavevmode\hypertarget{ref-Grilli2015MetPer}{}%
-Grilli, Jacopo, György Barabás, and Stefano Allesina. 2015.
-{``Metapopulation Persistence in Random Fragmented Landscapes.''} Edited
-by Matthew (Matt) Ferrari. \emph{PLOS Computational Biology} 11 (5):
-e1004251. \url{https://doi.org/10.1371/journal.pcbi.1004251}.
+Grilli, J., Barabás, G. \& Allesina, S. (2015). Metapopulation
+Persistence in Random Fragmented Landscapes. \emph{PLOS Computational
+Biology}, 11, e1004251.
 
 \leavevmode\hypertarget{ref-Hanski1994PraMod}{}%
-Hanski, Ilkka. 1994. {``A Practical Model of Metapopulation Dynamics.''}
-\emph{The Journal of Animal Ecology} 63 (1): 151.
-\url{https://doi.org/10.2307/5591}.
+Hanski, I. (1994). A Practical Model of Metapopulation Dynamics.
+\emph{The Journal of Animal Ecology}, 63, 151.
 
 \leavevmode\hypertarget{ref-Hastings1978GloSta}{}%
-Hastings, Alan. 1978. {``Global Stability in Lotka-Volterra Systems with
-Diffusion.''} \emph{Journal of Mathematical Biology} 6 (2): 163--68.
-\url{https://doi.org/10.1007/BF02450786}.
+Hastings, A. (1978). Global stability in Lotka-Volterra systems with
+diffusion. \emph{Journal of Mathematical Biology}, 6, 163--168.
 
 \leavevmode\hypertarget{ref-Levins1987DiaBio}{}%
-Levins, Richard, and Richard Charles Lewontin. 1987. \emph{The
-Dialectical Biologist}. Cambridge, Mass.: Harvard University Press.
+Levins, R. \& Lewontin, R.C. (1987). \emph{The Dialectical Biologist}.
+Harvard University Press, Cambridge, Mass.
 
 \leavevmode\hypertarget{ref-Minor2008GraFra}{}%
-Minor, Emily S., and Dean L. Urban. 2008. {``A Graph-Theory Framework
-for Evaluating Landscape Connectivity and Conservation Planning.''}
-\emph{Conservation Biology} 22 (2): 297--307.
-\url{https://doi.org/10.1111/j.1523-1739.2007.00871.x}.
+Minor, E.S. \& Urban, D.L. (2008). A Graph-Theory Framework for
+Evaluating Landscape Connectivity and Conservation Planning.
+\emph{Conservation Biology}, 22, 297--307.
 
 \leavevmode\hypertarget{ref-Resasco2019MetDec}{}%
-Resasco, Julian. 2019. {``Meta-Analysis on a Decade of Testing Corridor
-Efficacy: What New Have We Learned?''} \emph{Current Landscape Ecology
-Reports} 4 (3): 61--69.
-\url{https://doi.org/10.1007/s40823-019-00041-9}.
+Resasco, J. (2019). Meta-analysis on a Decade of Testing Corridor
+Efficacy: What New Have we Learned? \emph{Current Landscape Ecology
+Reports}, 4, 61--69.
 
 \leavevmode\hypertarget{ref-Urban2001LanCon}{}%
-Urban, Dean, and Timothy Keitt. 2001. {``Landscape Connectivity: A
-Graph-Theoretic Perspective.''} \emph{Ecology} 82 (5): 1205--18.
-\url{https://doi.org/10.1890/0012-9658(2001)082\%5B1205:LCAGTP\%5D2.0.CO;2}.
+Urban, D. \& Keitt, T. (2001). Landscape Connectivity: A Graph-Theoretic
+Perspective. \emph{Ecology}, 82, 1205--1218.
 
 \end{CSLReferences}
 
